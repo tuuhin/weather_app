@@ -45,6 +45,9 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
             if (t == 1) {
               _controller.animateTo(1);
             }
+            if (t == 2) {
+              _controller.animateTo(2);
+            }
           },
           selectedItemColor: Colors.black45,
           unselectedItemColor: Colors.black45,
