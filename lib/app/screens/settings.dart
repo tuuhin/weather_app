@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/services/theme/changetheme_cubit.dart';
+import 'package:weatherapp/domain/services/theme/changetheme_cubit.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);

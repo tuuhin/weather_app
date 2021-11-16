@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
-import 'package:weatherapp/services/cubit/SearchCubit/search_cubit.dart';
+import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({Key? key}) : super(key: key);

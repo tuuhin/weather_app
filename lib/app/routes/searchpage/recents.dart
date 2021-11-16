@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp/services/data/app_data.dart';
+import 'package:weatherapp/data/local/localstorage.dart';
 
 class Recents extends StatelessWidget {
   const Recents({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<String>? _recents = AppData.getRecents();
+    final List<String>? _recents = LocalStorage.getRecents();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -18,7 +18,7 @@ class Recents extends StatelessWidget {
               Text('Recents', style: Theme.of(context).textTheme.headline6),
               IconButton(
                   onPressed: () {
-                    AppData.clearHistory();
+                    LocalStorage.clearHistory();
                   },
                   icon: Icon(Icons.delete_forever))
             ],

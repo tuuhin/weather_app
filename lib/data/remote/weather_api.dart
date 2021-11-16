@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:weatherapp/services/data/app_data.dart';
+import 'package:weatherapp/data/local/localstorage.dart';
 
 class Api {
   final String? cityName;
@@ -19,7 +19,7 @@ class Api {
         yield {'status': 'bad-request'};
       } else {
         Map<String, dynamic> _body = jsonDecode(_response.body);
-        AppData.newRecent(_body['name']);
+        LocalStorage.newRecent(_body['name']);
         yield {'status': 'success', 'value': _body};
       }
     } on SocketException {

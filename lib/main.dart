@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weatherapp/app/app.dart';
-import 'package:weatherapp/services/cubit/SearchCubit/search_cubit.dart';
-import 'package:weatherapp/services/data/app_data.dart';
-import 'package:weatherapp/services/theme/changetheme_cubit.dart';
+import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
+import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/domain/services/theme/changetheme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: '.env');
-  await AppData.init();
+  await LocalStorage.init();
 
   runApp(const MyApp());
 }

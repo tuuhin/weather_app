@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:weatherapp/services/data/api_req.dart';
+import 'package:weatherapp/data/remote/weather_api.dart';
 
 part 'search_state.dart';
 
