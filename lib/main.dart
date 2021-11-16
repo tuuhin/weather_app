@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weatherapp/app/app.dart';
+import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
 import 'package:weatherapp/domain/services/theme/changetheme_cubit.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       ),
       BlocProvider<SearchCubit>(
         create: (context) => SearchCubit(),
-      )
+      ),
+      BlocProvider<FavouritesCubit>(create: (context) => FavouritesCubit())
     ], child: const Core());
   }
 }

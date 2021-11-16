@@ -10,8 +10,8 @@ class Search extends SearchState {}
 class Loading extends SearchState {}
 
 class GoodRequest extends SearchState {
-  Map<String, dynamic>? body;
-  GoodRequest({this.body});
+  final SummaryModel? data;
+  GoodRequest({this.data});
 }
 
 class BadRequest extends SearchState {}

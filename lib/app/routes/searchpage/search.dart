@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherapp/app/routes/resultspage/results.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
+import 'package:weatherapp/data/local/localstorage.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
 class SearchBar extends StatefulWidget {
@@ -64,15 +66,20 @@ class _SearchBarState extends State<SearchBar> {
                 ),
               ),
               BlocListener<SearchCubit, SearchState>(
-                listener: (context, state) {},
+                listener: (context, state) {
+                  if (state is GoodRequest) {
+                    LocalStorage.newRecent(_search.text);
+                    _searchcubit.pop();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            WeatherSummary(summaryModel: state.data)));
+                  }
+                },
                 child: BlocBuilder<SearchCubit, SearchState>(
                     builder: (context, state) {
                   print(state);
                   if (state is Normal) {
                     return const Expanded(child: Recents());
-                  }
-                  if (state is GoodRequest) {
-                    return const WeatherSummary();
                   }
 
                   return Text('hellow');
@@ -84,7 +91,7 @@ class _SearchBarState extends State<SearchBar> {
               onPressed: () {
                 _searchcubit.listenToSearch(_search.text);
               },
-              child: Icon(Icons.search))),
+              child: const Icon(Icons.search))),
     );
   }
 }

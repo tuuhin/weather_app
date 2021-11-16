@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
 class Recents extends StatelessWidget {
   const Recents({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
     final List<String>? _recents = LocalStorage.getRecents();
 
     return Padding(
@@ -20,17 +23,19 @@ class Recents extends StatelessWidget {
                   onPressed: () {
                     LocalStorage.clearHistory();
                   },
-                  icon: Icon(Icons.delete_forever))
+                  icon: const Icon(Icons.delete_forever))
             ],
           ),
           (_recents == null || _recents.isEmpty)
-              ? Text('No recents search')
+              ? const Text('No recents search')
               : Expanded(
                   child: ListView.builder(
                       itemCount: _recents.length,
                       itemBuilder: (context, i) => ListTile(
                             title: Text(_recents[i]),
-                            onTap: () {},
+                            onTap: () {
+                              _searchcubit.listenToSearch(_recents[i]);
+                            },
                           )),
                 )
         ],

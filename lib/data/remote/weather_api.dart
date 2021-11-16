@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/data/remote/json_to_model.dart';
 
 class Api {
   final String? cityName;
@@ -19,12 +20,13 @@ class Api {
         yield {'status': 'bad-request'};
       } else {
         Map<String, dynamic> _body = jsonDecode(_response.body);
-        LocalStorage.newRecent(_body['name']);
+        print('called');
         yield {'status': 'success', 'value': _body};
       }
     } on SocketException {
       yield {'status': 'socket-error'};
     } catch (e) {
+      print(e);
       yield {'status': 'unknown-request'};
     }
   }
