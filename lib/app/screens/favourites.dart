@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
-import 'package:weatherapp/app/screens/favourites/weather_card.dart';
-import 'package:weatherapp/app/screens/favourites/weather_card_shimmer.dart';
-import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
+import 'package:weatherapp/app/screens/favourites/favourites_builder.dart';
 
 class Favourites extends StatelessWidget {
   const Favourites({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final FavouritesCubit _fav = BlocProvider.of(context, listen: true);
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -39,31 +35,7 @@ class Favourites extends StatelessWidget {
               ),
             ),
             const Divider(),
-            Expanded(child: BlocBuilder<FavouritesCubit, FavouritesState>(
-              builder: (context, state) {
-                print(state);
-                if (state is Success) {
-                  print(state.favouritesInfo);
-                  return ListView.builder(
-                      itemCount: state.favouritesInfo!.length,
-                      itemBuilder: (BuildContext context, int i) => WeatherCard(
-                            cityname: state.favouritesInfo![i].cityname,
-                            humidity: i,
-                            temp: i,
-                            pressure: i,
-                            windSpeed: i,
-                            visibility: i,
-                          ));
-                }
-                if (state is Loading) {
-                  _fav.loadData();
-                }
-                return ListView.builder(
-                    itemCount: 10,
-                    itemBuilder: (context, i) => WeatherShimmer());
-              },
-            ))
-            // Expanded(
+            const FavouritesBuilder(),
           ],
         ),
       )),

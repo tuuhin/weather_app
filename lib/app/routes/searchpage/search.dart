@@ -50,40 +50,34 @@ class _SearchBarState extends State<SearchBar> {
                           onPressed: () {
                             _search.text = '';
                           },
-                          icon: Icon(
-                            Icons.cancel,
-                            color: Theme.of(context).textTheme.bodyText1!.color,
-                          )),
+                          icon: Icon(Icons.cancel,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .color)),
                       prefixIcon: IconButton(
                           onPressed: () {
                             _searchcubit.pop();
                             Navigator.of(context).pop();
                           },
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Theme.of(context).textTheme.bodyText1!.color,
-                          ))),
+                          icon: Icon(Icons.arrow_back,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .color))),
                 ),
               ),
               BlocListener<SearchCubit, SearchState>(
                 listener: (context, state) {
                   if (state is GoodRequest) {
-                    LocalStorage.newRecent(_search.text);
+                    LocalStorage.recent(state.data!.cityName);
                     _searchcubit.pop();
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             WeatherSummary(summaryModel: state.data)));
                   }
                 },
-                child: BlocBuilder<SearchCubit, SearchState>(
-                    builder: (context, state) {
-                  print(state);
-                  if (state is Normal) {
-                    return const Expanded(child: Recents());
-                  }
-
-                  return Text('hellow');
-                }),
+                child: const SearchBuilder(),
               )
             ]),
           ),

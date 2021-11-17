@@ -5,8 +5,6 @@ abstract class SearchState {}
 
 class Normal extends SearchState {}
 
-class Search extends SearchState {}
-
 class Loading extends SearchState {}
 
 class GoodRequest extends SearchState {

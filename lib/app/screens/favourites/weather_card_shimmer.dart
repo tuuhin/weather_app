@@ -5,7 +5,8 @@ class WeatherShimmer extends StatelessWidget {
   const WeatherShimmer({
     Key? key,
   }) : super(key: key);
-
+// Color(0xffcfd8dc)
+// Color(0xff90a4ae)
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,8 +19,13 @@ class WeatherShimmer extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Shimmer.fromColors(
-                  baseColor: Colors.grey,
-                  highlightColor: Colors.white,
+                  baseColor: Theme.of(context).brightness == Brightness.light
+                      ? const Color(0xffeeeeee)
+                      : const Color(0xff616161),
+                  highlightColor:
+                      Theme.of(context).brightness == Brightness.light
+                          ? const Color(0xfffafafa)
+                          : const Color(0xff757575),
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.4,
                     color: Colors.white,
@@ -36,10 +42,10 @@ class WeatherShimmer extends StatelessWidget {
                     ? Colors.grey[100]
                     : Colors.white10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: 8,
+                  width: 6,
                   height: double.infinity,
                   decoration: BoxDecoration(
                       color: Theme.of(context).brightness == Brightness.light
@@ -56,11 +62,16 @@ class WeatherShimmer extends StatelessWidget {
                       ]),
                 ),
                 Shimmer.fromColors(
-                  baseColor: Colors.grey,
-                  highlightColor: Colors.white,
+                  baseColor: Theme.of(context).brightness == Brightness.light
+                      ? const Color(0xffeeeeee)
+                      : const Color(0xff616161),
+                  highlightColor:
+                      Theme.of(context).brightness == Brightness.light
+                          ? const Color(0xfffafafa)
+                          : const Color(0xff757575),
                   child: Container(
                     color: Colors.grey,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.82,
                     height: 65,
                   ),
                 )

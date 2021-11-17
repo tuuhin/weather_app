@@ -18,13 +18,14 @@ class _FavouriteAppBarState extends State<FavouriteAppBar> {
         const SizedBox.shrink(),
         IconButton(
             onPressed: () async {
-              bool favourite = await LocalStorage.newFavourite(widget.cityname);
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  duration: const Duration(seconds: 1),
-                  content: Text(favourite
-                      ? 'Added to favourites'
-                      : 'removed from favourites')));
-              setState(() {});
+              bool? favourite =
+                  await LocalStorage.addFavourite(widget.cityname);
+              if (favourite == true) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    duration: Duration(seconds: 1),
+                    content: Text('Added to favourites')));
+                setState(() {});
+              }
             },
             icon: Icon(LocalStorage.isFav(widget.cityname ?? '')
                 ? Icons.favorite
