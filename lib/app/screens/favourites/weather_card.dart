@@ -21,7 +21,7 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
+      elevation: 5,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
         child: ListTile(

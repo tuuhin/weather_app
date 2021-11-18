@@ -39,11 +39,13 @@ class LocalStorage {
 
   static Future<bool?> addFavourite(String? cityname) async {
     List<String> _recents = _pref!.getStringList('favourite') ?? [];
+
     if (cityname != null) {
       if (!isFav(cityname)) {
         if (!_recents.contains(cityname)) {
           _recents.add(cityname);
-          await _pref!.setStringList('recents', _recents);
+          await _pref!.setStringList('favourite', _recents);
+          print(_recents);
           return true;
         }
       }

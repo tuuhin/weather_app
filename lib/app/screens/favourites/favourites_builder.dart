@@ -17,7 +17,7 @@ class FavouritesBuilder extends StatelessWidget {
           if (state is Loading) {
             _fav.loadData();
             return ListView.builder(
-                itemCount: 3,
+                itemCount: 4,
                 itemBuilder: (context, i) => const WeatherShimmer());
           } else if (state is Socket) {
             return const Text('Internet absent');

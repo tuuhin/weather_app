@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
 import 'package:weatherapp/app/screens/favourites/favourites_builder.dart';
+import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
 class Favourites extends StatelessWidget {
   const Favourites({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
     return Scaffold(
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: Column(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 3),
+        child: SafeArea(
+            child: Column(
           children: [
             GestureDetector(
               onTap: () {
+                _searchcubit.showLoading();
                 Navigator.of(context, rootNavigator: false).push(
                     MaterialPageRoute(
                         builder: (BuildContext context) => const SearchBar()));
@@ -37,8 +41,8 @@ class Favourites extends StatelessWidget {
             const Divider(),
             const FavouritesBuilder(),
           ],
-        ),
-      )),
+        )),
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weatherapp/app/app.dart';
@@ -6,12 +7,18 @@ import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubi
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
 import 'package:weatherapp/domain/services/theme/changetheme_cubit.dart';
+import 'package:weatherapp/domain/services/theme/palette.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load(fileName: '.env');
   await LocalStorage.init();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top]);
 
   runApp(const MyApp());
 }
@@ -44,7 +51,7 @@ class Core extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Weather App',
-      theme: _themecubit.dark ? ThemeData.dark() : ThemeData.light(),
+      theme: _themecubit.dark ? Palette.dark : Palette.light,
       home: const App(),
     );
   }

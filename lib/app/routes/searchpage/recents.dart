@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
-class Recents extends StatelessWidget {
+class Recents extends StatefulWidget {
   const Recents({Key? key}) : super(key: key);
 
+  @override
+  State<Recents> createState() => _RecentsState();
+}
+
+class _RecentsState extends State<Recents> {
   @override
   Widget build(BuildContext context) {
     final SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
     final List<String>? _recents = LocalStorage.getRecents();
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const CurrentLocation(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -22,16 +30,18 @@ class Recents extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     LocalStorage.clearHistory();
+                    setState(() {});
                   },
                   icon: const Icon(Icons.delete_forever))
             ],
           ),
           (_recents == null || _recents.isEmpty)
-              ? const Text('No recents search')
+              ? const Center(child: Text('No recents search'))
               : Expanded(
                   child: ListView.builder(
                       itemCount: _recents.length,
                       itemBuilder: (context, i) => ListTile(
+                            minVerticalPadding: 0,
                             title: Text(_recents[i]),
                             onTap: () {
                               _searchcubit.listenToSearch(_recents[i]);

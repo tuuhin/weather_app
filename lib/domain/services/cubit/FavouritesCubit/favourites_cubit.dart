@@ -10,18 +10,18 @@ part 'favourites_state.dart';
 class FavouritesCubit extends Cubit<FavouritesState> {
   FavouritesCubit() : super(Loading());
 
-  final List<String> _favouites = LocalStorage.getFavourites();
-
   void loadData() async {
+    final List<String> _favouites =
+        LocalStorage.getFavourites().reversed.toList();
     if (_favouites.isEmpty) {
       emit(NoFavourites());
     } else {
-      _getDataFromAPi();
+      _getDataFromAPi(_favouites);
     }
   }
 
-  void _getDataFromAPi() async {
-    Api.getFavouritesWeather(_favouites).listen((event) {
+  void _getDataFromAPi(List<String> fav) async {
+    Api.getFavouritesWeather(fav).listen((event) {
       if (event == 'loading') {
         emit(Loading());
       } else if (event['status'] == 'socket-error') {

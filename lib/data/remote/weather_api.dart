@@ -61,4 +61,29 @@ class Api {
       yield {'status': 'unknown-request'};
     }
   }
+
+  static Stream<Map<String, dynamic>> currentPosWeather(
+      double latt, double long) async* {
+    print(latt);
+    Uri _search = Uri.parse(
+        'http://api.openweathermap.org/data/2.5/weather?lat=$latt&lon=$long&appid=$apiKey&units=metric');
+    yield {'status': 'loading'};
+    try {
+      http.Response _response = await http.get(_search);
+
+      if (_response.statusCode != 200) {
+        print(_response.body);
+        yield {'status': 'bad-request'};
+      } else {
+        Map<String, dynamic> _body = jsonDecode(_response.body);
+        // print('callled api');
+        yield {'status': 'success', 'value': _body};
+      }
+    } on SocketException {
+      yield {'status': 'socket-error'};
+    } catch (e) {
+      print(e.toString());
+      yield {'status': 'unknown-request'};
+    }
+  }
 }

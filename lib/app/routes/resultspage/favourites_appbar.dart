@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
 
 class FavouriteAppBar extends StatefulWidget {
   final String? cityname;
@@ -12,25 +14,21 @@ class FavouriteAppBar extends StatefulWidget {
 class _FavouriteAppBarState extends State<FavouriteAppBar> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const SizedBox.shrink(),
-        IconButton(
-            onPressed: () async {
-              bool? favourite =
-                  await LocalStorage.addFavourite(widget.cityname);
-              if (favourite == true) {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    duration: Duration(seconds: 1),
-                    content: Text('Added to favourites')));
-                setState(() {});
-              }
-            },
-            icon: Icon(LocalStorage.isFav(widget.cityname ?? '')
-                ? Icons.favorite
-                : Icons.favorite_outline))
-      ],
-    );
+    FavouritesCubit _fav = BlocProvider.of<FavouritesCubit>(context);
+    return IconButton(
+        onPressed: () async {
+          bool? favourite = await LocalStorage.addFavourite(widget.cityname);
+          if (favourite == true) {
+            _fav.loadData();
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                duration: Duration(seconds: 1),
+                content: Text('Added to favourites')));
+
+            setState(() {});
+          }
+        },
+        icon: Icon(LocalStorage.isFav(widget.cityname ?? '')
+            ? Icons.favorite
+            : Icons.favorite_outline));
   }
 }
