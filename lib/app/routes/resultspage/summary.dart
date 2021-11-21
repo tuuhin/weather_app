@@ -11,6 +11,7 @@ class WeatherSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
+    print(summaryModel!.weatherId);
     return WillPopScope(
       onWillPop: () async {
         _searchcubit.showLoading();
@@ -44,16 +45,14 @@ class WeatherSummary extends StatelessWidget {
                           style: Theme.of(context).textTheme.caption),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                        height: 100,
-                        width: 100,
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                colors: [Colors.pink, Colors.orange]),
-                            borderRadius: BorderRadius.circular(50))),
-                  ),
+                  summaryModel!.weatherId != null
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 3),
+                          child: Image.asset(
+                              'assets/icon/${summaryModel!.weatherId}.png',
+                              scale: 3),
+                        )
+                      : const SizedBox.shrink(),
                   Chip(
                       label: Text('${summaryModel!.weatherMain}',
                           style: Theme.of(context).textTheme.subtitle1)),

@@ -19,28 +19,32 @@ class SearchCubit extends Cubit<SearchState> {
         emit(Loading());
       } else if (event['status'] == 'bad-request') {
         emit(BadRequest());
-      } else if (event['status'] == 'socket-error') {
-        emit(Socket());
+      } else if (event['status'] == 'internet-absent') {
+        emit(InternetAbsent(event['error']));
+      } else if (event['status'] == 'time-out') {
+        emit(TimeOut(event['error']));
       } else if (event['status'] == 'success') {
         emit(GoodRequest(data: JsonToModel.toSummary(event['value'])));
-      } else {
-        emit(UnknownError());
+      } else if (event['status'] == 'unknown') {
+        emit(Unknown(event['value']));
       }
     });
   }
 
-  void listenToSearch(String cityname) {
+  void getCity(String cityname) {
     Api.searchWeatherData(cityname).listen((event) {
       if (event['status'] == 'loading') {
         emit(Loading());
       } else if (event['status'] == 'bad-request') {
         emit(BadRequest());
-      } else if (event['status'] == 'socket-error') {
-        emit(Socket());
+      } else if (event['status'] == 'internet-absent') {
+        emit(InternetAbsent(event['error']));
+      } else if (event['status'] == 'time-out') {
+        emit(TimeOut(event['error']));
       } else if (event['status'] == 'success') {
         emit(GoodRequest(data: JsonToModel.toSummary(event['value'])));
-      } else {
-        emit(UnknownError());
+      } else if (event['status'] == 'unknown') {
+        emit(Unknown(event['value']));
       }
     });
   }

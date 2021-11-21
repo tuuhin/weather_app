@@ -14,6 +14,17 @@ class GoodRequest extends SearchState {
 
 class BadRequest extends SearchState {}
 
-class Socket extends SearchState {}
+class InternetAbsent extends SearchState {
+  final Object? error;
+  InternetAbsent(this.error);
+}
 
-class UnknownError extends SearchState {}
+class Unknown extends SearchState {
+  final Object? error;
+  Unknown(this.error);
+}
+
+class TimeOut extends SearchState {
+  final Object? error;
+  TimeOut(this.error);
+}

@@ -5,9 +5,20 @@ abstract class FavouritesState {}
 
 class Loading extends FavouritesState {}
 
-class Socket extends FavouritesState {}
+class InternetAbsent extends FavouritesState {
+  final Object? error;
+  InternetAbsent(this.error);
+}
 
-class UnknownError extends FavouritesState {}
+class Unknown extends FavouritesState {
+  final Object? error;
+  Unknown(this.error);
+}
+
+class TimeOut extends FavouritesState {
+  final Object? error;
+  TimeOut(this.error);
+}
 
 class BadRequest extends FavouritesState {}
 

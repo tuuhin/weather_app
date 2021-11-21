@@ -44,7 +44,7 @@ class _RecentsState extends State<Recents> {
                             minVerticalPadding: 0,
                             title: Text(_recents[i]),
                             onTap: () {
-                              _searchcubit.listenToSearch(_recents[i]);
+                              _searchcubit.getCity(_recents[i]);
                             },
                           )),
                 )

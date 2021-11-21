@@ -15,7 +15,7 @@ class JsonToModel {
         temp: data['main']['temp'],
         weatherMain: data['weather'][0]['main'],
         description: data['weather'][0]['description'],
-        weatherId: data['weather'][0]['id'],
+        weatherId: data['weather'][0]['icon'],
         lat: data['coord']['lat'],
         lon: data['coord']['lon']);
   }

@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weatherapp/app/app.dart';
+import 'package:weatherapp/app/builder.dart';
+import 'package:weatherapp/domain/services/cubit/AppCubit/app_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
@@ -17,8 +19,7 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   runApp(const MyApp());
 }
@@ -35,13 +36,16 @@ class MyApp extends StatelessWidget {
       BlocProvider<SearchCubit>(
         create: (context) => SearchCubit(),
       ),
-      BlocProvider<FavouritesCubit>(create: (context) => FavouritesCubit())
-    ], child: const Core());
+      BlocProvider<FavouritesCubit>(create: (context) => FavouritesCubit()),
+      BlocProvider<AppCubit>(
+        create: (context) => AppCubit(),
+      ),
+    ], child: const _Core());
   }
 }
 
-class Core extends StatelessWidget {
-  const Core({Key? key}) : super(key: key);
+class _Core extends StatelessWidget {
+  const _Core({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +56,7 @@ class Core extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Weather App',
       theme: _themecubit.dark ? Palette.dark : Palette.light,
-      home: const App(),
+      home: const AppBuilder(),
     );
   }
 }

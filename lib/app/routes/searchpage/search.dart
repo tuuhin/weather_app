@@ -36,7 +36,7 @@ class _SearchBarState extends State<SearchBar> {
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 controller: _search,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.url,
                 decoration: InputDecoration(
                     filled: true,
                     border: InputBorder.none,
@@ -74,12 +74,12 @@ class _SearchBarState extends State<SearchBar> {
                 }
               },
               child: const SearchBuilder(),
-            )
+            ),
           ]),
         ),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
-              _searchcubit.listenToSearch(_search.text);
+              _searchcubit.getCity(_search.text);
             },
             child: const Icon(Icons.search)));
   }

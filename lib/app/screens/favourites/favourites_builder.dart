@@ -19,11 +19,11 @@ class FavouritesBuilder extends StatelessWidget {
             return ListView.builder(
                 itemCount: 4,
                 itemBuilder: (context, i) => const WeatherShimmer());
-          } else if (state is Socket) {
+          } else if (state is InternetAbsent) {
             return const Text('Internet absent');
           } else if (state is NoFavourites) {
             return const Text('There is no favourites');
-          } else if (state is UnknownError) {
+          } else if (state is Unknown) {
             return const Text('unknown error');
           } else if (state is Success) {
             return ListView.builder(

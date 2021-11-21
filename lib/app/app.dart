@@ -31,7 +31,7 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
       const Favourites(),
       const Settings()
     ];
-    final List<String> _labels = ['Home', 'Favourites'];
+    final List<String> _labels = ['Home', 'Favourites', 'Settings'];
     return Scaffold(
       body: TabBarView(
         controller: _controller,
@@ -52,7 +52,12 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
           selectedItemColor: Colors.black45,
           unselectedItemColor: Colors.black45,
           items: _icons
-              .map((e) => BottomNavigationBarItem(icon: Icon(e), label: 'hi'))
+              .asMap()
+              .map((key, value) => MapEntry(
+                  key,
+                  BottomNavigationBarItem(
+                      icon: Icon(value), label: _labels[key])))
+              .values
               .toList()),
     );
   }

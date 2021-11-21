@@ -7,16 +7,27 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChangeThemeCubit _themecubit = BlocProvider.of(context);
+    ChangeThemeCubit _themecubit = BlocProvider.of(context, listen: true);
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
-            TextButton(
-                onPressed: () {
+            const Text('settings'),
+            SwitchListTile(
+                title: const Text('Toggle Theme'),
+                value: _themecubit.dark,
+                onChanged: (t) {
                   _themecubit.toggletheme();
-                },
-                child: Text('change theme')),
+                }),
+            ListTile(
+              title: Text('Unit'),
+              trailing: ToggleButtons(
+                selectedColor: Colors.cyan,
+                children: [Text('standard'), Text('metric'), Text('hellow')],
+                isSelected: [false, false, true],
+                onPressed: (i) {},
+              ),
+            )
           ],
         ),
       ),

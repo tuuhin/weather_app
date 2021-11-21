@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
-import 'package:weatherapp/data/remote/json_to_model.dart';
+
 import 'package:weatherapp/data/remote/weather_api.dart';
 import 'package:weatherapp/domain/models/favourites_model.dart';
 
@@ -16,22 +16,24 @@ class FavouritesCubit extends Cubit<FavouritesState> {
     if (_favouites.isEmpty) {
       emit(NoFavourites());
     } else {
-      _getDataFromAPi(_favouites);
+      _loadFavourites(_favouites);
     }
   }
 
-  void _getDataFromAPi(List<String> fav) async {
+  void _loadFavourites(List<String> fav) async {
     Api.getFavouritesWeather(fav).listen((event) {
-      if (event == 'loading') {
+      if (event['status'] == 'loading') {
         emit(Loading());
-      } else if (event['status'] == 'socket-error') {
-        emit(Socket());
+      } else if (event['status'] == 'internet-absent') {
+        emit(InternetAbsent(event['value']));
       } else if (event['status'] == 'bad-request') {
         emit(BadRequest());
       } else if (event['status'] == 'success') {
         emit(Success(favouritesInfo: event['value']));
-      } else if (event['status'] == 'unknown-request') {
-        emit(UnknownError());
+      } else if (event['status'] == 'time-out') {
+        emit(TimeOut(event['value']));
+      } else if (event['status'] == 'unknown') {
+        emit(Unknown(event['value']));
       }
     });
   }

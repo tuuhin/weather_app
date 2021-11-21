@@ -1,7 +1,7 @@
 class SummaryModel {
   num? lon;
   num? lat;
-  int? weatherId;
+  String? weatherId;
   String? weatherMain;
   String? description;
   num? temp;
