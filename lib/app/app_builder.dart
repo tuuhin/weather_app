@@ -33,7 +33,7 @@ class AppBuilder extends StatelessWidget {
             semanticsLabel: 'Loading',
           )));
         } else if (state is AppSuccess) {
-          return const App();
+          return App(model: state.model);
         } else if (state is ApiError) {
           return Scaffold(
               appBar: AppBar(
@@ -57,9 +57,15 @@ class AppBuilder extends StatelessWidget {
               ),
               body: Center(
                   child: ApiResponse(
-                onPressed: () async {
-                  Position _pos = await Utils.getPos();
-                  _app.getWeatherBulk(_pos.latitude, _pos.longitude);
+                onPressed: () {
+                  Utils.getPos()
+                      .then((Position pos) =>
+                          _app.getWeatherBulk(pos.latitude, pos.longitude))
+                      .onError((error, stackTrace) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('$error'),
+                    ));
+                  });
                 },
                 imageSrc: 'assets/api/network.png',
                 helper: 'Internet absent',

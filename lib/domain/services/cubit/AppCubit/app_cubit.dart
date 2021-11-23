@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:weatherapp/data/remote/json_to_model.dart';
 import 'package:weatherapp/data/remote/weather_api.dart';
+import 'package:weatherapp/domain/models/home_model.dart';
 
 part 'app_state.dart';
 
@@ -18,7 +20,7 @@ class AppCubit extends Cubit<AppState> {
       } else if (event['status'] == 'unknown') {
         emit(AppUnknown());
       } else if (event['status'] == 'success') {
-        emit(AppSuccess());
+        emit(AppSuccess(JsonToModel.getModel(event['value'])));
       }
     });
   }

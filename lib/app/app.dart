@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/screens/screens.dart';
+import 'package:weatherapp/domain/models/models.dart';
+import 'package:weatherapp/domain/services/cubit/DataProvider/dataprovider_cubit.dart';
 
 class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+  final HomeModel? model;
+  const App({this.model, Key? key}) : super(key: key);
 
   @override
   State<App> createState() => _AppState();
@@ -26,8 +30,12 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final List<IconData> _icons = [Icons.home, Icons.favorite, Icons.settings];
+    final List<MaterialColor> _colors = [Colors.blue, Colors.red, Colors.grey];
     final List<Widget> _screens = [
-      const Home(),
+      BlocProvider(
+        create: (context) => DataproviderCubit(widget.model),
+        child: const Home(),
+      ),
       const Favourites(),
       const Settings()
     ];
@@ -48,15 +56,18 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
             if (t == 2) {
               _controller.animateTo(2);
             }
+            setState(() {});
           },
-          selectedItemColor: Colors.black45,
-          unselectedItemColor: Colors.black45,
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey,
           items: _icons
               .asMap()
               .map((key, value) => MapEntry(
                   key,
                   BottomNavigationBarItem(
-                      icon: Icon(value), label: _labels[key])))
+                    icon: Icon(value),
+                    label: _labels[key],
+                  )))
               .values
               .toList()),
     );

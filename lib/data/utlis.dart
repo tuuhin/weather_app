@@ -1,4 +1,5 @@
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 
 class Utils {
   static Future<Position> getPos() async {
@@ -20,5 +21,33 @@ class Utils {
       return Future.error('permission are denied forever');
     }
     return await Geolocator.getCurrentPosition();
+  }
+
+  static String readTimeStamp(int unixTimeStamp) {
+    DateFormat format = DateFormat('jm');
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
+
+    return format.format(date);
+  }
+
+  static String timeStamp24hr(int unixTimeStamp) {
+    DateFormat format = DateFormat('Hm');
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
+
+    return format.format(date);
+  }
+
+  static String timestamptoDate(int unixTimeStamp) {
+    DateFormat format = DateFormat('Md');
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
+
+    return format.format(date);
+  }
+
+  static String readDay(int unixTimeStamp) {
+    DateFormat format = DateFormat('EEEE');
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
+
+    return format.format(date);
   }
 }

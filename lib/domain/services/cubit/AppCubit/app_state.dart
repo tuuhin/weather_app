@@ -5,7 +5,11 @@ abstract class AppState {}
 
 class AppLoading extends AppState {}
 
-class AppSuccess extends AppState {}
+class AppSuccess extends AppState {
+  final HomeModel? model;
+
+  AppSuccess(this.model);
+}
 
 class ApiError extends AppState {
   final int? statusCode;

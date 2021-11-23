@@ -21,6 +21,7 @@ dependencies:
   flutter_svg: ^0.23.0+1
   geolocator: ^7.7.1
   http: ^0.13.4
+  intl: ^0.17.0
   shared_preferences: ^2.0.8
   shimmer: ^2.0.0
 
