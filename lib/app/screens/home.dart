@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/screens/home/home.dart';
-import 'package:weatherapp/data/utlis.dart';
+import 'package:weatherapp/domain/utlis.dart';
 import 'package:weatherapp/domain/services/cubit/DataProvider/dataprovider_cubit.dart';
 
 class Home extends StatelessWidget {

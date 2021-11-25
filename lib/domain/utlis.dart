@@ -1,7 +1,27 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:weatherapp/data/local/localstorage.dart';
 
 class Utils {
+  static Future<String?> locationFromCoordinate(
+      double latt, double long) async {
+    try {
+      List<Placemark> _places = await placemarkFromCoordinates(latt, long);
+
+      return _places.first.locality ?? _places.first.subLocality;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  static getlocationInMemory() async {
+    if (!LocalStorage.checkPreviousLocation()) {
+      await LocalStorage.setCurrentLocation(28.6139, 77.2090);
+    }
+    return LocalStorage.getCurrentLocation();
+  }
+
   static Future<Position> getPos() async {
     bool _enabled;
     LocationPermission permission;

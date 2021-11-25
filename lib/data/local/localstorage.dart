@@ -52,7 +52,30 @@ class LocalStorage {
     }
   }
 
+  static setCurrentLocation(double latt, double long) async {
+    await _pref!.setDouble('lattitude', latt);
+    await _pref!.setDouble('longitude', long);
+  }
+
+  static getCurrentLocation() {
+    return [_pref!.getDouble('lattitude'), _pref!.getDouble('longitude')];
+  }
+
+  static bool checkPreviousLocation() {
+    double? _latt = _pref!.getDouble('lattitude');
+    double? _long = _pref!.getDouble('longitude');
+    if (_latt == null && _long == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   static clearHistory() async {
     await _pref!.setStringList('recents', []);
+  }
+
+  static clearFavorites() async {
+    await _pref!.setStringList('favourite', []);
   }
 }

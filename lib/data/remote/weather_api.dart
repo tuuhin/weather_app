@@ -125,7 +125,8 @@ class Api {
         'http://api.openweathermap.org/data/2.5/onecall?lat=$latt&lon=$long&exclude=minutely,alerts&appid=$apiKey&units=metric');
     try {
       yield {'status': 'loading'};
-      http.Response _response = await http.get(_url);
+      http.Response _response =
+          await http.get(_url).timeout(const Duration(minutes: 1));
       //checking for the status if
       // ites a valid request or not
       if (_response.statusCode == 200) {

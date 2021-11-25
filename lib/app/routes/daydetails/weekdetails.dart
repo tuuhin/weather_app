@@ -1,8 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:weatherapp/data/utlis.dart';
+import 'package:weatherapp/domain/utlis.dart';
 import 'package:weatherapp/domain/models/day_model.dart';
-import 'dart:math';
 
 class WeekDetails extends StatelessWidget {
   final List<DayModel>? day;
@@ -11,7 +10,11 @@ class WeekDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: const Text('Weekly Data'),
+      ),
       body: SafeArea(
         child: ListView(
           children: [
@@ -22,6 +25,7 @@ class WeekDetails extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: LineChart(
                   LineChartData(
+                      lineTouchData: LineTouchData(enabled: false),
                       titlesData: FlTitlesData(
                         show: true,
                         leftTitles: SideTitles(
@@ -67,7 +71,7 @@ class WeekDetails extends StatelessWidget {
                       axisTitleData: FlAxisTitleData(
                           show: true,
                           topTitle: AxisTitle(
-                              titleText: 'Dates (in /mm/dd )', showTitle: true),
+                              titleText: 'Dates (mm/dd )', showTitle: true),
                           rightTitle: AxisTitle(
                               titleText: 'Percentage of precipitaion',
                               showTitle: true),
@@ -167,6 +171,13 @@ class WeekDetails extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: 300,
+              child: PageView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 7,
+                  itemBuilder: (context, i) => const Card()),
+            )
           ],
         ),
       ),

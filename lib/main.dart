@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:weatherapp/app/app.dart';
-import 'package:weatherapp/app/builder.dart';
+
+import 'package:weatherapp/app/app_builder.dart';
 import 'package:weatherapp/domain/services/cubit/AppCubit/app_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
@@ -19,7 +19,6 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
   runApp(const MyApp());
 }

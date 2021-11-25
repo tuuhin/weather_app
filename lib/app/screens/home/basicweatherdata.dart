@@ -21,7 +21,7 @@ class BasicWeatherData extends StatelessWidget {
         ),
         Chip(
           avatar: const Icon(Icons.speed),
-          label: Text('${_data.model!.pressure ?? 0} atm'),
+          label: Text('${_data.model!.pressure ?? 0} hPa'),
         )
       ],
     );

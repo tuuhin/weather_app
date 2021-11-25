@@ -35,9 +35,12 @@ class JsonToModel {
     List hourdata = data['hourly'];
     List dayData = data['daily'];
     return HomeModel(
+        lattitude: data['lat'],
+        longitude: data['lon'],
+        weatherDescription: data['current']['weather'][0]['description'],
         weatherIconId: data['current']['weather'][0]['icon'],
         weatherMain: data['current']['weather'][0]['main'],
-        place: data['timezone'],
+        feelsLike: data['current']['feels_like'],
         windSpeed: data['current']['wind_speed'],
         pressure: data['current']['pressure'],
         humidity: data['current']['humidity'],

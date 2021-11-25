@@ -1,9 +1,13 @@
 import 'package:weatherapp/domain/models/models.dart';
 
 class HomeModel {
+  final double? lattitude;
+  final double? longitude;
   final String? weatherIconId;
+  final num? feelsLike;
   final String? weatherMain;
-  final String? place;
+  final String? weatherDescription;
+
   final num? windSpeed;
   final num? pressure;
   final num? humidity;
@@ -15,8 +19,11 @@ class HomeModel {
 
   HomeModel(
       {this.weatherIconId,
+      this.feelsLike,
+      this.weatherDescription,
+      this.lattitude,
+      this.longitude,
       this.weatherMain,
-      this.place,
       this.windSpeed,
       this.pressure,
       this.humidity,

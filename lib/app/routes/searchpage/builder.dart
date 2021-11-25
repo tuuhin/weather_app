@@ -11,8 +11,6 @@ class SearchBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchCubit, SearchState>(builder: (context, state) {
-      print(state);
-
       if (state is Normal) {
         return const Expanded(child: Recents());
       } else if (state is Loading) {
@@ -26,11 +24,12 @@ class SearchBuilder extends StatelessWidget {
             buttonText: 'Try Again');
       } else if (state is InternetAbsent) {
         return const ApiResponse(
-            imageSrc: 'assets/api/network.png',
-            helper: 'Internet Error',
-            secondary:
-                'The device is not connected to internet.Connect to a internet provider and then press on retry',
-            buttonText: 'Retry');
+          helperAbsent: true,
+          imageSrc: 'assets/api/network.png',
+          helper: 'Internet Error',
+          secondary:
+              'The device is not connected to internet.Connect to a internet provider and then press on retry',
+        );
       } else if (state is Unknown) {
         return const ApiResponse(
             imageSrc: 'assets/api/unknown.png',
