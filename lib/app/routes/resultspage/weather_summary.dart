@@ -113,18 +113,6 @@ class WeatherSummary extends StatelessWidget {
             ),
           ),
         ),
-        bottomNavigationBar: BottomAppBar(
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: ElevatedButton.icon(
-                  onPressed: () {
-                    // _app.getWeatherBulk(
-                    //     summaryModel!.lat ?? 0, summaryModel!.lon ?? 0);
-                  },
-                  icon: const Icon(Icons.home),
-                  label: const Text('Add to Home')),
-            )),
       ),
     );
   }

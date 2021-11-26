@@ -70,4 +70,11 @@ class Utils {
 
     return format.format(date);
   }
+
+  static String showDateforDetails(int unixTimeStamp) {
+    DateFormat formatDate = DateFormat('MMMEd');
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
+
+    return formatDate.format(date);
+  }
 }

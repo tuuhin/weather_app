@@ -32,7 +32,7 @@ class FavouritesBuilder extends StatelessWidget {
                 AppSettings.openDataRoamingSettings();
               },
               tryAgain: () {
-                _fav.loadData();
+                _fav.emit(Loading());
               },
             );
           } else if (state is BadRequest) {

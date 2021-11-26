@@ -60,7 +60,17 @@ class JsonToModel {
         dailyData: dayData
             .map(
               (day) => DayModel(
+                  sunrise: day['sunrise'],
+                  sunset: day['sunset'],
+                  tempFeelsLike: day['feels_like']['day'],
+                  rain: day['rain'],
+                  uvi: day['uvi'],
+                  weatherMain: day['weather'][0]['main'],
+                  weatherDescription: day['weather'][0]['description'],
                   pop: day['pop'],
+                  pressure: day['pressure'],
+                  humidity: day['humidity'],
+                  dewPoint: day['dew_point'],
                   windSpeed: day['wind_speed'],
                   weatherIconId: day['weather'][0]['icon'],
                   unixTimeStamp: day['dt'],

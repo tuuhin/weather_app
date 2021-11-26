@@ -43,7 +43,7 @@ class AppBuilder extends StatelessWidget {
               body: Center(
                   child: ApiResponse(
             tryAgain: () {
-              _app.getLocation();
+              _app.emit(AppLoading());
             },
             onPressed: () {
               AppSettings.openDataRoamingSettings();

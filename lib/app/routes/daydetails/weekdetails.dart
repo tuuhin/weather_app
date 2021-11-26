@@ -1,11 +1,19 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:weatherapp/app/routes/daydetails/daydetails.dart';
 import 'package:weatherapp/domain/utlis.dart';
 import 'package:weatherapp/domain/models/day_model.dart';
 
-class WeekDetails extends StatelessWidget {
+class WeekDetails extends StatefulWidget {
   final List<DayModel>? day;
   const WeekDetails({Key? key, this.day}) : super(key: key);
+
+  @override
+  State<WeekDetails> createState() => _WeekDetailsState();
+}
+
+class _WeekDetailsState extends State<WeekDetails> {
+  final PageController _pageController = PageController(viewportFraction: 0.9);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +52,7 @@ class WeekDetails extends StatelessWidget {
                               Theme.of(context).textTheme.caption,
                           getTitles: (t) {
                             return Utils.timestamptoDate(
-                                    day![t.toInt()].unixTimeStamp ?? 0)
+                                    widget.day![t.toInt()].unixTimeStamp ?? 0)
                                 .toString();
                           },
                         ),
@@ -54,7 +62,7 @@ class WeekDetails extends StatelessWidget {
                           getTextStyles: (context, t) =>
                               Theme.of(context).textTheme.caption,
                           getTitles: (double d) {
-                            return '${day![d.toInt()].windSpeed!}';
+                            return '${widget.day![d.toInt()].windSpeed!}';
                           },
                         ),
                         rightTitles: SideTitles(
@@ -86,7 +94,7 @@ class WeekDetails extends StatelessWidget {
                             dotData: FlDotData(
                                 show: false,
                                 checkToShowDot: (spot, barData) => true),
-                            spots: day!
+                            spots: widget.day!
                                 .asMap()
                                 .map(
                                   (key, value) => MapEntry(
@@ -108,7 +116,7 @@ class WeekDetails extends StatelessWidget {
                             dotData: FlDotData(
                                 show: false,
                                 checkToShowDot: (spot, barData) => true),
-                            spots: day!
+                            spots: widget.day!
                                 .asMap()
                                 .map(
                                   (key, value) => MapEntry(
@@ -130,7 +138,7 @@ class WeekDetails extends StatelessWidget {
                             dotData: FlDotData(
                                 show: false,
                                 checkToShowDot: (spot, barData) => true),
-                            spots: day!
+                            spots: widget.day!
                                 .asMap()
                                 .map(
                                   (key, value) => MapEntry(
@@ -152,7 +160,7 @@ class WeekDetails extends StatelessWidget {
                             dotData: FlDotData(
                                 show: false,
                                 checkToShowDot: (spot, barData) => true),
-                            spots: day!
+                            spots: widget.day!
                                 .asMap()
                                 .map(
                                   (key, value) => MapEntry(
@@ -172,11 +180,29 @@ class WeekDetails extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 300,
+              height: MediaQuery.of(context).size.height * 0.75,
               child: PageView.builder(
+                  controller: _pageController,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 7,
-                  itemBuilder: (context, i) => const Card()),
+                  itemCount: widget.day!.length,
+                  itemBuilder: (context, i) => DetailsCard(
+                        weatherMain: widget.day![i].weatherMain,
+                        weatherDesc: widget.day![i].weatherDescription,
+                        weatherIcon: widget.day![i].weatherIconId,
+                        currentTemp: widget.day![i].tempFeelsLike,
+                        windSpeed: widget.day![i].windSpeed,
+                        uvi: widget.day![i].uvi,
+                        dewpoint: widget.day![i].dewPoint,
+                        precipitaion: widget.day![i].rain,
+                        sunrise:
+                            Utils.readTimeStamp(widget.day![i].sunrise ?? 0),
+                        sunset: Utils.readTimeStamp(widget.day![i].sunset ?? 0),
+                        percentageOfPrecipitation: widget.day![i].pop,
+                        pressure: widget.day![i].pressure,
+                        humidity: widget.day![i].humidity,
+                        date: Utils.showDateforDetails(
+                            widget.day![i].unixTimeStamp ?? 0),
+                      )),
             )
           ],
         ),
