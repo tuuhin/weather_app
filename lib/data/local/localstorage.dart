@@ -45,7 +45,7 @@ class LocalStorage {
         if (!_recents.contains(cityname)) {
           _recents.add(cityname);
           await _pref!.setStringList('favourite', _recents);
-          print(_recents);
+          // print(_recents);
           return true;
         }
       }

@@ -29,9 +29,9 @@ class WeatherCard extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('$cityname', style: Theme.of(context).textTheme.headline4),
+              Text('$cityname', style: Theme.of(context).textTheme.headline5),
               Text('$temp' '\u00b0C',
-                  style: Theme.of(context).textTheme.headline5)
+                  style: Theme.of(context).textTheme.headline4)
             ],
           ),
           subtitle: Padding(
@@ -40,7 +40,7 @@ class WeatherCard extends StatelessWidget {
               height: 65,
               decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? Colors.grey[100]
+                      ? Colors.amber[100]
                       : Colors.white10),
               child: Row(
                 children: [

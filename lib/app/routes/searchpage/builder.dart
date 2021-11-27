@@ -31,11 +31,12 @@ class SearchBuilder extends StatelessWidget {
               'The device is not connected to internet.Connect to a internet provider and then press on retry',
         );
       } else if (state is Unknown) {
-        return const ApiResponse(
+        return ApiResponse(
+            helperAbsent: true,
             imageSrc: 'assets/api/unknown.png',
-            helper: 'Unknown Error',
+            helper: 'Error',
             secondary:
-                'Due to some unknown problem the application is not working fine.Try after some time',
+                'Due to ${state.error} problem the application is not working fine.Try after some time',
             buttonText: 'Retry');
       } else {
         return const SizedBox.shrink();

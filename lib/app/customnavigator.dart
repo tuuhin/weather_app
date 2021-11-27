@@ -20,6 +20,15 @@ class _CustomNavigatationBarState extends State<CustomNavigatationBar> {
   void initState() {
     super.initState();
     _controller = widget.controller;
+
+    _controller.addListener(() {
+      int _next = _controller.index.round();
+      if (_index != _next) {
+        setState(() {
+          _index = _controller.index;
+        });
+      }
+    });
   }
 
   @override

@@ -51,11 +51,11 @@ class FavouritesBuilder extends StatelessWidget {
               helperAbsent: true,
             );
           } else if (state is Unknown) {
-            return const ApiResponse(
+            return ApiResponse(
               imageSrc: 'assets/api/unknown.png',
-              helper: 'Unknown error',
+              helper: 'Error',
               secondary:
-                  'There is some unknown error .Its adviced to use the app after some period of time',
+                  'There is some ${state.error} .Its adviced to use the app after some period of time',
               helperAbsent: true,
             );
           } else if (state is Success) {

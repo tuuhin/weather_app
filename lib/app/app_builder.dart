@@ -15,7 +15,7 @@ class AppBuilder extends StatelessWidget {
     AppCubit _app = BlocProvider.of<AppCubit>(context, listen: true);
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
-        print(state);
+        // print(state);
         if (state is AppLoading) {
           _app.getLocation();
           return const Scaffold(

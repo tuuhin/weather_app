@@ -27,7 +27,7 @@ class Favourites extends StatelessWidget {
                               const SearchBar()));
                 },
                 tileColor: Theme.of(context).brightness == Brightness.light
-                    ? Colors.grey[100]
+                    ? null
                     : Colors.white10,
                 trailing: const Icon(Icons.search),
                 title: Text(

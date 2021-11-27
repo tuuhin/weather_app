@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/resultspage/results.dart';
 import 'package:weatherapp/domain/models/models.dart';
-import 'package:weatherapp/domain/services/cubit/AppCubit/app_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
 class WeatherSummary extends StatelessWidget {
@@ -12,8 +11,7 @@ class WeatherSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
-    AppCubit _app = BlocProvider.of<AppCubit>(context);
-    print(summaryModel!.weatherId);
+    // print(summaryModel!.weatherId);
     return WillPopScope(
       onWillPop: () async {
         _searchcubit.showLoading();

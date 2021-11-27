@@ -22,7 +22,7 @@ class AppCubit extends Cubit<AppState> {
 
   void getWeatherBulk(num latt, num long) {
     Api.getBulkData(latt, long).listen((event) {
-      print(event);
+      // print(event);
       if (event['status'] == 'bad-request') {
         emit(ApiError(event['value']['message'],
             statusCode: event['value']['cod']));

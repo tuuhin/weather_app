@@ -32,7 +32,7 @@ class _CurrentWeatherState extends State<CurrentWeather>
                   future: Utils.locationFromCoordinate(
                       _data.model!.lattitude ?? 0, _data.model!.longitude ?? 0),
                   builder: (context, AsyncSnapshot<String?> snapshot) {
-                    print(snapshot.data);
+                    // print(snapshot.data);
                     return Text(
                       snapshot.data ?? '',
                     );
