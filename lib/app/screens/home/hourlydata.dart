@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/app/screens/home/home.dart';
 import 'package:weatherapp/domain/utlis.dart';
 import 'package:weatherapp/domain/services/cubit/DataProvider/dataprovider_cubit.dart';
@@ -13,10 +14,16 @@ class HourlyData extends StatelessWidget {
 
     return Column(
       children: [
-        ListTile(
-          dense: true,
-          title:
-              Text('Day Report', style: Theme.of(context).textTheme.subtitle2),
+        const Divider(),
+        Card(
+          child: ListTile(
+            dense: true,
+            title: Text('Day\'s Weather Report',
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(fontFamily: GoogleFonts.poppins().fontFamily)),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),

@@ -12,6 +12,7 @@ class BasicWeatherData extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Chip(
+          elevation: 0,
           avatar: const Icon(Icons.air),
           label: Text('${_data.model!.windSpeed ?? 0} m/s'),
         ),

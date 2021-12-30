@@ -5,15 +5,13 @@ class Spinner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Column(
-        children: [
-          const CircularProgressIndicator(semanticsLabel: 'Loading...'),
-          const SizedBox(height: 10),
-          Text('Loading', style: Theme.of(context).textTheme.bodyText1)
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const CircularProgressIndicator(semanticsLabel: 'Loading...'),
+        Text('Loading', style: Theme.of(context).textTheme.bodyText1)
+      ],
     );
   }
 }

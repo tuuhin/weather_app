@@ -1,5 +1,5 @@
 name: weatherapp
-description: A new Flutter project.
+description: A Flutter project to check the weather data
 
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'
@@ -17,11 +17,10 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^7.3.3
   flutter_dotenv: ^5.0.2
-  flutter_localizations:
-    sdk: flutter
   flutter_svg: ^0.23.0+1
   geocoding: ^2.0.1
   geolocator: ^7.7.1
+  google_fonts: ^2.1.1
   http: ^0.13.4
   intl: ^0.17.0
   shared_preferences: ^2.0.8

@@ -24,14 +24,15 @@ class Settings extends StatelessWidget {
         children: [
           const Divider(),
           SwitchListTile(
-              secondary: const Icon(Icons.light),
+              secondary: Icon(_themecubit.dark ? Icons.dark_mode : Icons.light),
               title: const Text('Toggle Theme'),
               value: _themecubit.dark,
               onChanged: (t) {
                 _themecubit.toggletheme();
               }),
           ListTile(
-              leading: const Icon(Icons.favorite_border),
+              leading: Icon(Icons.favorite,
+                  color: _themecubit.dark ? Colors.pinkAccent : Colors.red),
               title: const Text('Clear Favourites'),
               subtitle: const Text('Tap to clear favourites'),
               onTap: () {
@@ -49,7 +50,7 @@ class Settings extends StatelessWidget {
               ],
             ),
             subtitle: const Text(
-                'OpenWeather aggregates and process thousands of data from the tens and thousands of weather stations, on-ground raders and satellites to bring you the accurate and actionable weather data from any locatiity'),
+                'OpenWeather aggregates and process thousands of data from thousands of weather stations and satellites to bring you the accurate data from any locatiity'),
           ),
         ],
       ),

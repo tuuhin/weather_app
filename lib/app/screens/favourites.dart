@@ -11,36 +11,30 @@ class Favourites extends StatelessWidget {
   Widget build(BuildContext context) {
     SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 3),
-        child: SafeArea(
-            child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 3),
-              child: ListTile(
-                onTap: () {
-                  _searchcubit.showLoading();
-                  Navigator.of(context, rootNavigator: false).push(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              const SearchBar()));
-                },
-                tileColor: Theme.of(context).brightness == Brightness.light
-                    ? null
-                    : Colors.white10,
-                trailing: const Icon(Icons.search),
-                title: Text(
-                  'Search',
-                  style: TextStyle(
-                      color: Theme.of(context).textTheme.caption!.color),
-                ),
-              ),
-            ),
-            const Divider(),
-            const FavouritesBuilder(),
-          ],
-        )),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: ListTile(
+          dense: true,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          onTap: () {
+            _searchcubit.showLoading();
+            Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
+                builder: (BuildContext context) => const SearchBar()));
+          },
+          tileColor: Theme.of(context).brightness == Brightness.light
+              ? null
+              : Colors.white10,
+          trailing: const Icon(Icons.search),
+          title: Text(
+            'Search',
+            style: TextStyle(color: Theme.of(context).textTheme.caption!.color),
+          ),
+        ),
+      ),
+      body: const SafeArea(
+        child: FavouritesBuilder(),
       ),
     );
   }

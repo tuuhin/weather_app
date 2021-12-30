@@ -27,40 +27,38 @@ class _CurrentWeatherState extends State<CurrentWeather>
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FutureBuilder(
                   future: Utils.locationFromCoordinate(
                       _data.model!.lattitude ?? 0, _data.model!.longitude ?? 0),
                   builder: (context, AsyncSnapshot<String?> snapshot) {
                     // print(snapshot.data);
-                    return Text(
-                      snapshot.data ?? '',
-                    );
+                    return Text(snapshot.data ?? '',
+                        style: Theme.of(context).textTheme.headline6);
                   }),
-              Text(_data.model!.temperature!.toStringAsFixed(1) + '\u00b0C',
+              Text(_data.model!.temperature!.toStringAsFixed(1) + ' \u00b0C',
                   style: Theme.of(context).textTheme.headline3),
-              Text('Feels Like : ' '${_data.model!.feelsLike}' '\u00b0C',
+              Text('Feels like : ' '${_data.model!.feelsLike}' '\u00b0C',
                   style: Theme.of(context).textTheme.caption),
-              const SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(_data.model!.weatherMain ?? '',
-                      style: Theme.of(context).textTheme.bodyText1),
-                  Text(_data.model!.weatherDescription ?? '',
-                      style: Theme.of(context).textTheme.caption),
-                ],
-              ),
             ],
           ),
-          _data.model!.weatherIconId != null
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 5, bottom: 3),
-                  child: Image.asset(
-                      'assets/icon/${_data.model!.weatherIconId}.png',
-                      scale: 3),
-                )
-              : const SizedBox.shrink(),
+          Column(
+            children: [
+              _data.model!.weatherIconId != null
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 5, bottom: 3),
+                      child: Image.asset(
+                          'assets/icon/${_data.model!.weatherIconId}.png',
+                          scale: 5),
+                    )
+                  : const SizedBox.shrink(),
+              Text(_data.model!.weatherMain ?? '',
+                  style: Theme.of(context).textTheme.bodyText1),
+              Text(_data.model!.weatherDescription ?? '',
+                  style: Theme.of(context).textTheme.caption),
+            ],
+          )
         ],
       ),
     );

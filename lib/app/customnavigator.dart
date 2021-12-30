@@ -11,7 +11,7 @@ class CustomNavigatationBar extends StatefulWidget {
 
 class _CustomNavigatationBarState extends State<CustomNavigatationBar> {
   late TabController _controller;
-  final List<IconData> _icons = [Icons.home, Icons.favorite, Icons.menu];
+  final List<IconData> _icons = [Icons.home, Icons.favorite, Icons.settings];
 
   final List<String> _labels = ['Home', 'Favourites', 'Settings'];
   int _index = 0;

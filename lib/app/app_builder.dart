@@ -1,10 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:weatherapp/app/api/api_response.dart';
 import 'package:weatherapp/app/app.dart';
-
 import 'package:weatherapp/domain/services/cubit/AppCubit/app_cubit.dart';
 
 class AppBuilder extends StatelessWidget {

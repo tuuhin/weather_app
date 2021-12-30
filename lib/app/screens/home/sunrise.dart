@@ -44,9 +44,9 @@ class Sunrise extends StatelessWidget {
           const SizedBox(height: 10),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             Text('Sunrise : ${sunrise ?? 0}',
-                style: Theme.of(context).textTheme.bodyText1),
+                style: Theme.of(context).textTheme.subtitle2),
             Text('Sunset : ${sunset ?? 0}',
-                style: Theme.of(context).textTheme.bodyText1)
+                style: Theme.of(context).textTheme.subtitle2)
           ])
         ],
       ),

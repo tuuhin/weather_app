@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Palette {
   static final ThemeData _light = ThemeData(
+      textTheme: GoogleFonts.ubuntuTextTheme(),
       appBarTheme: AppBarTheme(backgroundColor: Colors.amber[200]),
-      scaffoldBackgroundColor: Colors.amber[50],
       cardTheme: CardTheme(
-        color: Colors.yellow[50],
+        color: Colors.yellow[100],
         elevation: 2,
       ),
       chipTheme: ChipThemeData(
@@ -24,7 +25,9 @@ class Palette {
           unselectedIconTheme: const IconThemeData(color: Colors.amberAccent)),
       primarySwatch: Colors.amber);
   static final ThemeData _dark = ThemeData(
-      colorScheme: const ColorScheme.dark(), primarySwatch: Colors.deepPurple);
+      fontFamily: GoogleFonts.poppins().fontFamily,
+      colorScheme: const ColorScheme.dark(),
+      primarySwatch: Colors.deepPurple);
 
   static ThemeData get light => _light;
   static ThemeData get dark => _dark;

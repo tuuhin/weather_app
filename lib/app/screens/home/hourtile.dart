@@ -25,7 +25,7 @@ class HourTile extends StatelessWidget {
                   imageUrl: 'http://openweathermap.org/img/wn/$iconCode@2x.png')
               : const SizedBox.shrink(),
           Text('${temp ?? 0}' '\u00b0C',
-              style: Theme.of(context).textTheme.bodyText1),
+              style: Theme.of(context).textTheme.subtitle2),
         ],
       ),
     );

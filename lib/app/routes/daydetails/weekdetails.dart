@@ -1,8 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weatherapp/app/routes/daydetails/daydetails.dart';
 import 'package:weatherapp/domain/utlis.dart';
 import 'package:weatherapp/domain/models/day_model.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class WeekDetails extends StatefulWidget {
   final List<DayModel>? day;
@@ -21,7 +23,10 @@ class _WeekDetailsState extends State<WeekDetails> {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: const Text('Weekly Data'),
+        title: Text('Week\'s Weather',
+            style: TextStyle(
+              fontFamily: GoogleFonts.poppins().fontFamily,
+            )),
       ),
       body: SafeArea(
         child: ListView(
@@ -78,15 +83,13 @@ class _WeekDetailsState extends State<WeekDetails> {
                       borderData: FlBorderData(show: false),
                       axisTitleData: FlAxisTitleData(
                           show: true,
-                          topTitle: AxisTitle(
-                              titleText: 'Dates (mm/dd )', showTitle: true),
                           rightTitle: AxisTitle(
                               titleText: 'Percentage of precipitaion',
                               showTitle: true),
                           leftTitle: AxisTitle(
                               titleText: 'Temperature', showTitle: true),
                           bottomTitle: AxisTitle(
-                              titleText: 'WInd Speed (in m/s)',
+                              titleText: 'Wind Speed (in m/s)',
                               margin: 10,
                               showTitle: true)),
                       lineBarsData: [
@@ -107,7 +110,6 @@ class _WeekDetailsState extends State<WeekDetails> {
                                 )
                                 .values
                                 .toList(),
-                            isCurved: true,
                             colors:
                                 Theme.of(context).brightness == Brightness.light
                                     ? [Colors.deepOrange]
@@ -129,7 +131,6 @@ class _WeekDetailsState extends State<WeekDetails> {
                                 )
                                 .values
                                 .toList(),
-                            isCurved: true,
                             colors:
                                 Theme.of(context).brightness == Brightness.light
                                     ? [Colors.orange]
@@ -151,7 +152,6 @@ class _WeekDetailsState extends State<WeekDetails> {
                                 )
                                 .values
                                 .toList(),
-                            isCurved: true,
                             colors:
                                 Theme.of(context).brightness == Brightness.light
                                     ? [Colors.blueGrey]
@@ -173,12 +173,12 @@ class _WeekDetailsState extends State<WeekDetails> {
                                 )
                                 .values
                                 .toList(),
-                            isCurved: true,
                             colors: [Colors.grey])
                       ]),
                 ),
               ),
             ),
+            const Divider(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.75,
               child: PageView.builder(

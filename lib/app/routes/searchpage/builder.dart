@@ -12,11 +12,12 @@ class SearchBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchCubit, SearchState>(builder: (context, state) {
       if (state is Normal) {
-        return const Expanded(child: Recents());
+        return const Recents();
       } else if (state is Loading) {
         return const Spinner();
       } else if (state is BadRequest) {
         return const ApiResponse(
+            helperAbsent: true,
             imageSrc: 'assets/api/bad-req.png',
             helper: 'Bad Request',
             secondary:

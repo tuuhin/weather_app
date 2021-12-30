@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/resultspage/results.dart';
@@ -30,52 +31,58 @@ class _SearchBarState extends State<SearchBar> {
   Widget build(BuildContext context) {
     SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
     return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: TextField(
+            controller: _search,
+            keyboardType: TextInputType.url,
+            decoration: InputDecoration(
+              filled: true,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide.none),
+              hintText: 'Search',
+              hintStyle: Theme.of(context).textTheme.caption,
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+              suffixIcon: IconButton(
+                  onPressed: () {
+                    _search.text = '';
+                  },
+                  icon: Icon(
+                    Icons.cancel,
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                  )),
+              prefixIcon: IconButton(
+                  onPressed: () {
+                    // _searchcubit.pop();
+                    Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: Theme.of(context).textTheme.bodyText1!.color,
+                  )),
+            ),
+          ),
+        ),
         body: SafeArea(
-          child: Column(children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _search,
-                keyboardType: TextInputType.url,
-                decoration: InputDecoration(
-                    filled: true,
-                    border: InputBorder.none,
-                    hintText: 'Search',
-                    suffixIcon: IconButton(
-                        onPressed: () {
-                          _search.text = '';
-                        },
-                        icon: Icon(
-                          Icons.cancel,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
-                        )),
-                    prefixIcon: IconButton(
-                        onPressed: () {
-                          // _searchcubit.pop();
-                          Navigator.of(context).pop();
-                        },
-                        icon: Icon(
-                          Icons.arrow_back,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
-                        ))),
-              ),
-            ),
-            BlocListener<SearchCubit, SearchState>(
-              listener: (context, state) {
-                if (state is GoodRequest) {
-                  LocalStorage.recent(state.data!.cityName);
+          child: BlocListener<SearchCubit, SearchState>(
+            listener: (context, state) {
+              if (state is GoodRequest) {
+                LocalStorage.recent(state.data!.cityName);
 
-                  _search.text = '';
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          WeatherSummary(summaryModel: state.data)));
-                } else {
-                  _search.text = '';
-                }
-              },
-              child: const SearchBuilder(),
-            ),
-          ]),
+                _search.text = '';
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) =>
+                        WeatherSummary(summaryModel: state.data)));
+              } else {
+                _search.text = '';
+              }
+            },
+            child: const SearchBuilder(),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
