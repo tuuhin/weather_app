@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Palette {
   static final ThemeData _light = ThemeData(
-      textTheme: GoogleFonts.ubuntuTextTheme(),
+      fontFamily: GoogleFonts.poppins().fontFamily,
       appBarTheme: AppBarTheme(backgroundColor: Colors.amber[200]),
       cardTheme: CardTheme(
         color: Colors.yellow[100],

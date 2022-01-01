@@ -15,12 +15,10 @@ class Unknown extends FavouritesState {
   Unknown(this.error);
 }
 
-class TimeOut extends FavouritesState {
-  final Object? error;
-  TimeOut(this.error);
+class BadRequest extends FavouritesState {
+  final String? badReq;
+  BadRequest({this.badReq});
 }
-
-class BadRequest extends FavouritesState {}
 
 class NoFavourites extends FavouritesState {}
 

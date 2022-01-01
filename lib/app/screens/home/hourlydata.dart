@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/app/screens/home/home.dart';
+import 'package:weatherapp/domain/services/cubit/TimeFormatCubit/timeformat_cubit.dart';
 import 'package:weatherapp/domain/utlis.dart';
 import 'package:weatherapp/domain/services/cubit/DataProvider/dataprovider_cubit.dart';
 
@@ -11,7 +12,8 @@ class HourlyData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DataproviderCubit _data = BlocProvider.of<DataproviderCubit>(context);
-
+    TimeFormatCubit _timeFormat =
+        BlocProvider.of<TimeFormatCubit>(context, listen: true);
     return Column(
       children: [
         const Divider(),
@@ -35,7 +37,8 @@ class HourlyData extends StatelessWidget {
                       .map((hour) => HourTile(
                             temp: hour.temp,
                             iconCode: hour.weatherIconId,
-                            time: Utils.readTimeStamp(hour.unixTimeStamp ?? 0),
+                            time: Utils.readTimeStamp(
+                                _timeFormat.is24Mode, hour.unixTimeStamp ?? 0),
                           ))
                       .toList()
                   : [],

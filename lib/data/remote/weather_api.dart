@@ -8,12 +8,11 @@ import 'package:weatherapp/data/remote/json_to_model.dart';
 class Api {
   final String? cityName;
   Api({this.cityName});
-  static String? apiKey = dotenv.get('API_KEY');
+  static String? apiKey = dotenv.get('DEV_API_KEY');
 
   static Stream getFavouritesWeather(List<String> cities) async* {
     //current weather data of the favourites
     List<Map<String, dynamic>> _data = [];
-    yield {'status': 'loading'};
     for (String city in cities) {
       try {
         http.Response _res = await http.get(Uri.parse(
@@ -21,16 +20,13 @@ class Api {
         if (_res.statusCode == 200) {
           // if status_code is 200 then appending the data
           _data.add(jsonDecode(_res.body) as Map<String, dynamic>);
-        } else if (_res.statusCode == 404) {
-          yield {'status': 'bad-request'};
+        } else {
+          yield {'status': 'bad-request', 'value': _res.body};
+          print(_res.statusCode);
         }
       } on SocketException catch (e) {
         //internet-check
         yield {'status': 'internet-absent', 'value': e};
-        break;
-      } on TimeoutException catch (e) {
-        // failed to response on time
-        yield {'status': 'time-out', 'value': e};
         break;
       } catch (e) {
         // a unknown error
@@ -59,23 +55,20 @@ class Api {
       // checking for the type of responses
       // if 200 then its valid otherwise its not
 
-      if (_response.statusCode == 404) {
-        yield {
-          'status': 'bad-request',
-          'value': jsonDecode(_response.body) as Map<String, dynamic>
-        };
-      } else if (_response.statusCode == 200) {
+      if (_response.statusCode == 200) {
         yield {
           'status': 'success',
+          'value': jsonDecode(_response.body) as Map<String, dynamic>
+        };
+      } else {
+        yield {
+          'status': 'bad-request',
           'value': jsonDecode(_response.body) as Map<String, dynamic>
         };
       }
     } on SocketException catch (e) {
       //checking for the internet
       yield {'status': 'internet-absent', 'value': e};
-    } on TimeoutException catch (e) {
-      //checking for the timeout
-      yield {'status': 'time-out', 'value': e};
     } catch (e) {
       //checking for other type of errors
       print(e.toString());
@@ -120,7 +113,8 @@ class Api {
     }
   }
 
-  static Stream<Map<String, dynamic>> getBulkData(num latt, num long) async* {
+  static Stream<Map<String, dynamic>> getBulkData(
+      double latt, double long) async* {
     Uri _url = Uri.parse(
         'http://api.openweathermap.org/data/2.5/onecall?lat=$latt&lon=$long&exclude=minutely,alerts&appid=$apiKey&units=metric');
     try {

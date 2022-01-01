@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/app/api/api_response.dart';
-import 'package:weatherapp/app/api/spinner.dart';
+import 'package:weatherapp/app/responses/responses.dart';
+import 'package:weatherapp/app/responses/spinner.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
@@ -16,15 +16,14 @@ class SearchBuilder extends StatelessWidget {
       } else if (state is Loading) {
         return const Spinner();
       } else if (state is BadRequest) {
-        return const ApiResponse(
+        return Responses(
             helperAbsent: true,
             imageSrc: 'assets/api/bad-req.png',
-            helper: 'Bad Request',
-            secondary:
-                'The result is not returning a 200 statuscode thus there is a problem in the response of the api',
+            helper: 'Bad Request ${state.errorCode ?? ''}',
+            secondary: state.error,
             buttonText: 'Try Again');
       } else if (state is InternetAbsent) {
-        return const ApiResponse(
+        return const Responses(
           helperAbsent: true,
           imageSrc: 'assets/api/network.png',
           helper: 'Internet Error',
@@ -32,7 +31,7 @@ class SearchBuilder extends StatelessWidget {
               'The device is not connected to internet.Connect to a internet provider and then press on retry',
         );
       } else if (state is Unknown) {
-        return ApiResponse(
+        return Responses(
             helperAbsent: true,
             imageSrc: 'assets/api/unknown.png',
             helper: 'Error',

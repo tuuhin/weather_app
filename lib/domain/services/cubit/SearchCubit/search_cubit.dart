@@ -9,7 +9,7 @@ part 'search_state.dart';
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit() : super(Normal());
 
-  void showLoading() {
+  void showRecents() {
     emit(Normal());
   }
 
@@ -21,8 +21,6 @@ class SearchCubit extends Cubit<SearchState> {
         emit(BadRequest());
       } else if (event['status'] == 'internet-absent') {
         emit(InternetAbsent(event['error']));
-      } else if (event['status'] == 'time-out') {
-        emit(TimeOut(event['error']));
       } else if (event['status'] == 'success') {
         emit(GoodRequest(data: JsonToModel.toSummary(event['value'])));
       } else if (event['status'] == 'unknown') {
@@ -36,11 +34,12 @@ class SearchCubit extends Cubit<SearchState> {
       if (event['status'] == 'loading') {
         emit(Loading());
       } else if (event['status'] == 'bad-request') {
-        emit(BadRequest());
+        emit(BadRequest(
+          error: event['value']['message'],
+          errorCode: event['value']['cod'],
+        ));
       } else if (event['status'] == 'internet-absent') {
         emit(InternetAbsent(event['error']));
-      } else if (event['status'] == 'time-out') {
-        emit(TimeOut(event['error']));
       } else if (event['status'] == 'success') {
         emit(GoodRequest(data: JsonToModel.toSummary(event['value'])));
       } else if (event['status'] == 'unknown') {

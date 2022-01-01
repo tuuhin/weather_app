@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/data/local/store_fav.dart';
 import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
 
 class FavouriteAppBar extends StatefulWidget {
@@ -14,20 +15,17 @@ class FavouriteAppBar extends StatefulWidget {
 class _FavouriteAppBarState extends State<FavouriteAppBar> {
   @override
   Widget build(BuildContext context) {
-    FavouritesCubit _fav = BlocProvider.of<FavouritesCubit>(context);
     return IconButton(
         onPressed: () async {
-          bool? favourite = await LocalStorage.addFavourite(widget.cityname);
-          if (favourite == true) {
-            _fav.loadData();
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                duration: Duration(seconds: 1),
-                content: Text('Added to favourites')));
-
-            setState(() {});
-          }
+          bool updateFav =
+              await StoreFavourites.updateFavourites(widget.cityname);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              duration: const Duration(seconds: 1),
+              content:
+                  Text(updateFav ? 'Favourite Added' : 'Favourite Removed')));
+          setState(() {});
         },
-        icon: Icon(LocalStorage.isFav(widget.cityname ?? '')
+        icon: Icon(StoreFavourites.isFavourite(widget.cityname)
             ? Icons.favorite
             : Icons.favorite_outline));
   }

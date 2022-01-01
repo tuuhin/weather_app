@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/resultspage/results.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/data/local/store_recents.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
 class SearchBar extends StatefulWidget {
@@ -36,6 +37,7 @@ class _SearchBarState extends State<SearchBar> {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: TextField(
+            autofocus: true,
             controller: _search,
             keyboardType: TextInputType.url,
             decoration: InputDecoration(
@@ -71,7 +73,9 @@ class _SearchBarState extends State<SearchBar> {
           child: BlocListener<SearchCubit, SearchState>(
             listener: (context, state) {
               if (state is GoodRequest) {
-                LocalStorage.recent(state.data!.cityName);
+                // LocalStorage.recent(state.data!.cityName);
+                StoreRecents.addRecents(state.data!.cityName);
+                FocusScope.of(context).requestFocus(FocusNode());
 
                 _search.text = '';
                 Navigator.of(context).pushReplacement(MaterialPageRoute(

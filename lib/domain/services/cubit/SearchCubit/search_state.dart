@@ -12,7 +12,11 @@ class GoodRequest extends SearchState {
   GoodRequest({this.data});
 }
 
-class BadRequest extends SearchState {}
+class BadRequest extends SearchState {
+  final String? error;
+  final dynamic errorCode;
+  BadRequest({this.error, this.errorCode});
+}
 
 class InternetAbsent extends SearchState {
   final Object? error;
@@ -22,9 +26,4 @@ class InternetAbsent extends SearchState {
 class Unknown extends SearchState {
   final Object? error;
   Unknown(this.error);
-}
-
-class TimeOut extends SearchState {
-  final Object? error;
-  TimeOut(this.error);
 }

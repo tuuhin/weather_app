@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/data/local/store_fav.dart';
+import 'package:weatherapp/data/local/store_recents.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
 class Recents extends StatefulWidget {
@@ -15,7 +17,7 @@ class _RecentsState extends State<Recents> {
   @override
   Widget build(BuildContext context) {
     final SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
-    final List<String>? _recents = LocalStorage.getRecents();
+    final List<String>? _recents = StoreRecents.getRecents();
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -29,7 +31,7 @@ class _RecentsState extends State<Recents> {
               Text('Recents', style: Theme.of(context).textTheme.headline6),
               IconButton(
                   onPressed: () {
-                    LocalStorage.clearHistory();
+                    StoreFavourites.clearFavourites();
                     setState(() {});
                   },
                   icon: const Icon(Icons.delete_forever))

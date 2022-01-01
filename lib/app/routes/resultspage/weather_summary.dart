@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/resultspage/results.dart';
+import 'package:weatherapp/data/local/store_location.dart';
 import 'package:weatherapp/domain/models/models.dart';
+import 'package:weatherapp/domain/services/cubit/AppCubit/app_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 
 class WeatherSummary extends StatelessWidget {
   final SummaryModel? summaryModel;
   const WeatherSummary({Key? key, this.summaryModel}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    AppCubit _app = BlocProvider.of<AppCubit>(context, listen: true);
     SearchCubit _searchcubit = BlocProvider.of<SearchCubit>(context);
-    print(summaryModel!.description);
     return WillPopScope(
       onWillPop: () async {
-        _searchcubit.showLoading();
+        _searchcubit.showRecents();
         return true;
       },
       child: Scaffold(
@@ -40,8 +41,9 @@ class WeatherSummary extends StatelessWidget {
               //   ],
               // ),
               summaryModel!.weatherId != null
-                  ? Image.asset('assets/icon/${summaryModel!.weatherId}.png',
-                      scale: 2.5)
+                  ? Image.asset(
+                      'assets/icon/${summaryModel!.weatherId}.png',
+                    )
                   : const SizedBox.shrink(),
               Chip(
                   label: Text('${summaryModel!.weatherMain}',
@@ -101,10 +103,13 @@ class WeatherSummary extends StatelessWidget {
         ),
         bottomNavigationBar: BottomAppBar(
           child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              await StoreLocation.setUserPreferedLocation(
+                  summaryModel!.lat, summaryModel!.lon);
               Navigator.of(context).pop();
+              _app.emit(AppLoading());
             },
-            child: Text('Add to home',
+            child: Text('Set as Prefered City',
                 style: Theme.of(context).textTheme.subtitle2),
           ),
         ),

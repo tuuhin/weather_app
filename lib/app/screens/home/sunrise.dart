@@ -29,14 +29,14 @@ class Sunrise extends StatelessWidget {
                     bottom: 10,
                     child: Image.asset(
                       'assets/icon/01n.png',
-                      scale: 20,
+                      scale: 4,
                     )),
                 Positioned(
                     left: 15,
                     bottom: 10,
                     child: Image.asset(
                       'assets/icon/01d.png',
-                      scale: 20,
+                      scale: 4,
                     )),
               ],
             ),

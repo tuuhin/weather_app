@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/data/local/store_fav.dart';
 
 import 'package:weatherapp/data/remote/weather_api.dart';
 import 'package:weatherapp/domain/models/favourites_model.dart';
@@ -11,13 +11,15 @@ class FavouritesCubit extends Cubit<FavouritesState> {
   FavouritesCubit() : super(Loading());
 
   void loadData() async {
-    final List<String> _favouites =
-        LocalStorage.getFavourites().reversed.toList();
-    if (_favouites.isEmpty) {
-      emit(NoFavourites());
-    } else {
-      _loadFavourites(_favouites);
-    }
+    final List<String> _favourites =
+        StoreFavourites.getFavourites().reversed.toList();
+    if (_favourites.isEmpty) return emit(NoFavourites());
+    _loadFavourites(_favourites);
+    print('loading data');
+  }
+
+  void refreshFavs() {
+    emit(Loading());
   }
 
   void _loadFavourites(List<String> fav) async {
@@ -27,11 +29,9 @@ class FavouritesCubit extends Cubit<FavouritesState> {
       } else if (event['status'] == 'internet-absent') {
         emit(InternetAbsent(event['value']));
       } else if (event['status'] == 'bad-request') {
-        emit(BadRequest());
+        emit(BadRequest(badReq: event['value']));
       } else if (event['status'] == 'success') {
         emit(Success(favouritesInfo: event['value']));
-      } else if (event['status'] == 'time-out') {
-        emit(TimeOut(event['value']));
       } else if (event['status'] == 'unknown') {
         emit(Unknown(event['value']));
       }

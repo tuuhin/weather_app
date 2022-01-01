@@ -1,25 +1,28 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:weatherapp/data/local/localstorage.dart';
 
 class Utils {
-  static Future<String?> locationFromCoordinate(
-      double latt, double long) async {
+  static Future<String?> locationFromCoordinate(num? latt, num? long) async {
     try {
-      List<Placemark> _places = await placemarkFromCoordinates(latt, long);
-
-      return _places.first.locality ?? _places.first.subLocality;
+      if (latt != null && long != null) {
+        List<Placemark> _places =
+            await placemarkFromCoordinates(latt.toDouble(), long.toDouble());
+        // print(_places.first);
+        if (_places.first.subLocality != '') return _places.first.subLocality;
+        if (_places.first.locality != '') return _places.first.locality;
+        if (_places.first.subAdministrativeArea != '') {
+          return _places.first.subAdministrativeArea;
+        }
+        if (_places.first.street != '') return _places.first.street;
+        if (_places.first.administrativeArea != '') {
+          return _places.first.administrativeArea;
+        }
+        if (_places.first.country != '') return _places.first.country;
+      }
     } catch (e) {
       print(e.toString());
     }
-  }
-
-  static getlocationInMemory() async {
-    if (!LocalStorage.checkPreviousLocation()) {
-      await LocalStorage.setCurrentLocation(28.6139, 77.2090);
-    }
-    return LocalStorage.getCurrentLocation();
   }
 
   static Future<Position> getPos() async {
@@ -43,19 +46,24 @@ class Utils {
     return await Geolocator.getCurrentPosition();
   }
 
-  static String readTimeStamp(int unixTimeStamp) {
-    DateFormat format = DateFormat('jm');
+  static String readTimeStamp(bool is24Hr, int unixTimeStamp) {
+    DateFormat format = DateFormat(is24Hr ? 'Hm' : 'jm');
     DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
-
     return format.format(date);
   }
 
-  static String timeStamp24hr(int unixTimeStamp) {
-    DateFormat format = DateFormat('Hm');
-    DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
+  // static String readTimeStamp(int unixTimeStamp) {
+  //   DateFormat format = DateFormat('jm');
+  //   DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
+  //   return format.format(date);
+  // }
 
-    return format.format(date);
-  }
+  // static String timeStamp24hr(int unixTimeStamp) {
+  //   DateFormat format = DateFormat('Hm');
+  //   DateTime date = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
+
+  //   return format.format(date);
+  // }
 
   static String timestamptoDate(int unixTimeStamp) {
     DateFormat format = DateFormat('Md');

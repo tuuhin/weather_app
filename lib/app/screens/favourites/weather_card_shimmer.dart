@@ -10,7 +10,7 @@ class WeatherShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(0, 8, 8, 8),
         child: ListTile(
@@ -21,11 +21,11 @@ class WeatherShimmer extends StatelessWidget {
                 child: Shimmer.fromColors(
                   baseColor: Theme.of(context).brightness == Brightness.light
                       ? const Color(0xffeeeeee)
-                      : const Color(0xff616161),
+                      : Colors.white.withOpacity(0.2),
                   highlightColor:
                       Theme.of(context).brightness == Brightness.light
                           ? const Color(0xfffafafa)
-                          : const Color(0xff757575),
+                          : Colors.white.withOpacity(0.4),
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.4,
                     color: Colors.white,
@@ -38,6 +38,9 @@ class WeatherShimmer extends StatelessWidget {
           subtitle: Container(
             height: 65,
             decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
                 color: Theme.of(context).brightness == Brightness.light
                     ? Colors.grey[100]
                     : Colors.white10),
@@ -63,11 +66,11 @@ class WeatherShimmer extends StatelessWidget {
                 ),
                 Shimmer.fromColors(
                   baseColor: Theme.of(context).brightness == Brightness.light
-                      ? const Color(0xffeeeeee)
+                      ? Colors.amber.withOpacity(0.4)
                       : const Color(0xff616161),
                   highlightColor:
                       Theme.of(context).brightness == Brightness.light
-                          ? const Color(0xfffafafa)
+                          ? Colors.amber.withOpacity(0.2)
                           : const Color(0xff757575),
                   child: Container(
                     color: Colors.grey,

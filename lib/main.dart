@@ -7,6 +7,7 @@ import 'package:weatherapp/domain/services/cubit/AppCubit/app_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 import 'package:weatherapp/data/local/localstorage.dart';
+import 'package:weatherapp/domain/services/cubit/TimeFormatCubit/timeformat_cubit.dart';
 import 'package:weatherapp/domain/services/theme/changetheme_cubit.dart';
 import 'package:weatherapp/domain/services/theme/palette.dart';
 
@@ -15,9 +16,11 @@ void main() async {
 
   await dotenv.load(fileName: '.env');
   await LocalStorage.init();
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   runApp(const MyApp());
 }
@@ -28,6 +31,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
+      BlocProvider<TimeFormatCubit>(
+        create: (context) => TimeFormatCubit(),
+      ),
       BlocProvider<ChangeThemeCubit>(
         create: (context) => ChangeThemeCubit(),
       ),

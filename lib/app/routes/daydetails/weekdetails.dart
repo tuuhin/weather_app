@@ -1,7 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/daydetails/daydetails.dart';
+import 'package:weatherapp/domain/services/cubit/TimeFormatCubit/timeformat_cubit.dart';
 import 'package:weatherapp/domain/utlis.dart';
 import 'package:weatherapp/domain/models/day_model.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +21,8 @@ class _WeekDetailsState extends State<WeekDetails> {
 
   @override
   Widget build(BuildContext context) {
+    TimeFormatCubit _timeFormat =
+        BlocProvider.of<TimeFormatCubit>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -194,9 +198,10 @@ class _WeekDetailsState extends State<WeekDetails> {
                         uvi: widget.day![i].uvi,
                         dewpoint: widget.day![i].dewPoint,
                         precipitaion: widget.day![i].rain,
-                        sunrise:
-                            Utils.readTimeStamp(widget.day![i].sunrise ?? 0),
-                        sunset: Utils.readTimeStamp(widget.day![i].sunset ?? 0),
+                        sunrise: Utils.readTimeStamp(
+                            _timeFormat.is24Mode, widget.day![i].sunrise ?? 0),
+                        sunset: Utils.readTimeStamp(
+                            _timeFormat.is24Mode, widget.day![i].sunset ?? 0),
                         percentageOfPrecipitation: widget.day![i].pop,
                         pressure: widget.day![i].pressure,
                         humidity: widget.day![i].humidity,

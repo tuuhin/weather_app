@@ -21,8 +21,7 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 5,
-      borderOnForeground: false,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: ListTile(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,6 +36,9 @@ class WeatherCard extends StatelessWidget {
           child: Container(
             height: 65,
             decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(10),
+                    bottomRight: Radius.circular(10)),
                 color: Theme.of(context).brightness == Brightness.light
                     ? Colors.amber[100]
                     : Colors.white10),

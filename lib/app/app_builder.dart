@@ -1,8 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/app/api/api_response.dart';
 import 'package:weatherapp/app/app.dart';
+import 'package:weatherapp/app/responses/response.dart';
 import 'package:weatherapp/domain/services/cubit/AppCubit/app_cubit.dart';
 
 class AppBuilder extends StatelessWidget {
@@ -13,16 +13,9 @@ class AppBuilder extends StatelessWidget {
     AppCubit _app = BlocProvider.of<AppCubit>(context, listen: true);
     return BlocBuilder<AppCubit, AppState>(
       builder: (context, state) {
-        // print(state);
         if (state is AppLoading) {
           _app.getLocation();
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(
-                semanticsLabel: 'Loading',
-              ),
-            ),
-          );
+          return const AppLoader();
         } else if (state is AppSuccess) {
           return App(model: state.model);
         } else if (state is ApiError) {
@@ -31,7 +24,7 @@ class AppBuilder extends StatelessWidget {
                 title: const Text('Request Failed'),
                 centerTitle: true,
               ),
-              body: ApiResponse(
+              body: Responses(
                 helperAbsent: true,
                 imageSrc: 'assets/api/unknown.png',
                 secondary: '${state.error} ',
@@ -39,7 +32,7 @@ class AppBuilder extends StatelessWidget {
         } else if (state is AppInternetAbsent) {
           return Scaffold(
               body: Center(
-                  child: ApiResponse(
+                  child: Responses(
             tryAgain: () {
               _app.emit(AppLoading());
             },

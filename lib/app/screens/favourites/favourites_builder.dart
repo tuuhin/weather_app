@@ -1,7 +1,8 @@
 import 'package:app_settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/app/api/api_response.dart';
+import 'package:weatherapp/app/responses/responses.dart';
+import 'package:weatherapp/app/screens/favourites/no_users_fav_exists.dart';
 import 'package:weatherapp/app/screens/favourites/weather_card.dart';
 import 'package:weatherapp/app/screens/favourites/weather_card_shimmer.dart';
 import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
@@ -21,7 +22,7 @@ class FavouritesBuilder extends StatelessWidget {
               itemCount: 4,
               itemBuilder: (context, i) => const WeatherShimmer());
         } else if (state is InternetAbsent) {
-          return ApiResponse(
+          return Responses(
             imageSrc: 'assets/api/network.png',
             helper: 'No internet',
             secondary:
@@ -35,21 +36,16 @@ class FavouritesBuilder extends StatelessWidget {
             },
           );
         } else if (state is BadRequest) {
-          return const ApiResponse(
+          return Responses(
             imageSrc: 'assets/api/bad-req.png',
             helper: 'Failed ',
-            secondary: 'Bad Request.City don\'t exists',
+            secondary: state.badReq,
             helperAbsent: true,
           );
         } else if (state is NoFavourites) {
-          return const ApiResponse(
-            imageSrc: 'assets/api/heart.png',
-            helper: 'No Favourites',
-            secondary: 'You have not added any city to your favourites.',
-            helperAbsent: true,
-          );
+          return const NoUserFavorites();
         } else if (state is Unknown) {
-          return ApiResponse(
+          return Responses(
             imageSrc: 'assets/api/unknown.png',
             helper: 'Error',
             secondary:

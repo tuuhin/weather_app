@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/data/local/localstorage.dart';
 import 'package:weatherapp/domain/utlis.dart';
 import 'package:weatherapp/domain/services/cubit/DataProvider/dataprovider_cubit.dart';
 
@@ -18,9 +17,6 @@ class _CurrentWeatherState extends State<CurrentWeather>
     super.build(context);
     DataproviderCubit _data = BlocProvider.of<DataproviderCubit>(context);
 
-    LocalStorage.setCurrentLocation(
-        _data.model!.lattitude ?? 0, _data.model!.longitude ?? 0);
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Row(
@@ -29,14 +25,16 @@ class _CurrentWeatherState extends State<CurrentWeather>
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FutureBuilder(
-                  future: Utils.locationFromCoordinate(
-                      _data.model!.lattitude ?? 0, _data.model!.longitude ?? 0),
-                  builder: (context, AsyncSnapshot<String?> snapshot) {
-                    // print(snapshot.data);
-                    return Text(snapshot.data ?? '',
-                        style: Theme.of(context).textTheme.headline6);
-                  }),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: FutureBuilder(
+                    future: Utils.locationFromCoordinate(
+                        _data.model!.lattitude, _data.model!.longitude),
+                    builder: (context, AsyncSnapshot<String?> snapshot) {
+                      return Text(snapshot.data ?? '',
+                          style: Theme.of(context).textTheme.headline6);
+                    }),
+              ),
               Text(_data.model!.temperature!.toStringAsFixed(1) + ' \u00b0C',
                   style: Theme.of(context).textTheme.headline3),
               Text('Feels like : ' '${_data.model!.feelsLike}' '\u00b0C',
@@ -49,8 +47,8 @@ class _CurrentWeatherState extends State<CurrentWeather>
                   ? Padding(
                       padding: const EdgeInsets.only(top: 5, bottom: 3),
                       child: Image.asset(
-                          'assets/icon/${_data.model!.weatherIconId}.png',
-                          scale: 5),
+                        'assets/icon/${_data.model!.weatherIconId}.png',
+                      ),
                     )
                   : const SizedBox.shrink(),
               Text(_data.model!.weatherMain ?? '',
