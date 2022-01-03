@@ -4,7 +4,7 @@ import 'package:weatherapp/domain/models/home_model.dart';
 
 part 'dataprovider_state.dart';
 
-class DataproviderCubit extends Cubit<DataproviderState> {
+class DataProviderCubit extends Cubit<DataProviderState> {
   final HomeModel? model;
-  DataproviderCubit(this.model) : super(DataproviderInitial());
+  DataProviderCubit(this.model) : super(DataProvider());
 }

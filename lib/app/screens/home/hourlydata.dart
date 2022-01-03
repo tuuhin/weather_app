@@ -11,7 +11,7 @@ class HourlyData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataproviderCubit _data = BlocProvider.of<DataproviderCubit>(context);
+    DataProviderCubit _data = BlocProvider.of<DataProviderCubit>(context);
     TimeFormatCubit _timeFormat =
         BlocProvider.of<TimeFormatCubit>(context, listen: true);
     return Column(

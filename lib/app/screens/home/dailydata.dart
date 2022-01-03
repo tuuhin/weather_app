@@ -11,7 +11,7 @@ class DailyData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataproviderCubit _data = BlocProvider.of<DataproviderCubit>(context);
+    DataProviderCubit _data = BlocProvider.of<DataProviderCubit>(context);
     return Column(
       children: [
         const Divider(),

@@ -8,7 +8,7 @@ import 'package:weatherapp/data/remote/json_to_model.dart';
 class Api {
   final String? cityName;
   Api({this.cityName});
-  static String? apiKey = dotenv.get('DEV_API_KEY');
+  static String? apiKey = dotenv.get('API_KEY');
 
   static Stream getFavouritesWeather(List<String> cities) async* {
     //current weather data of the favourites

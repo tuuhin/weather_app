@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Responses extends StatelessWidget {
   final String imageSrc;
@@ -28,12 +29,12 @@ class Responses extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(imageSrc, scale: 3),
-            Text(helper ?? '', style: Theme.of(context).textTheme.subtitle2),
+            Text(helper ?? '', style: Theme.of(context).textTheme.headline5),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                secondary ?? '',
-              ),
+              child: Text(secondary ?? '',
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                      fontFamily: GoogleFonts.robotoCondensed().fontFamily)),
             ),
             !(helperAbsent == true)
                 ? Row(
@@ -42,7 +43,9 @@ class Responses extends StatelessWidget {
                       TextButton(
                           onPressed: tryAgain, child: const Text('Try again ')),
                       ElevatedButton(
-                          onPressed: onPressed, child: Text(buttonText ?? '')),
+                          onPressed: onPressed,
+                          child: Text(buttonText ?? '',
+                              style: Theme.of(context).textTheme.subtitle2))
                     ],
                   )
                 : const SizedBox.shrink()

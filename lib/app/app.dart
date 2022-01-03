@@ -26,7 +26,7 @@ class _AppState extends State<App> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final List<Widget> _screens = [
       BlocProvider(
-        create: (context) => DataproviderCubit(widget.model),
+        create: (context) => DataProviderCubit(widget.model),
         child: const Home(),
       ),
       const Favourites(),

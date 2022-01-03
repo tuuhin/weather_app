@@ -7,24 +7,24 @@ import 'package:weatherapp/domain/models/models.dart';
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
-  SearchCubit() : super(Normal());
+  SearchCubit() : super(ShowRecents());
 
   void showRecents() {
-    emit(Normal());
+    emit(ShowRecents());
   }
 
   void getDataFromCoord(double latt, double long) {
     Api.currentPosWeather(latt, long).listen((event) {
       if (event['status'] == 'loading') {
-        emit(Loading());
+        emit(SearchingResult());
       } else if (event['status'] == 'bad-request') {
-        emit(BadRequest());
+        emit(ApiGivesBadRequest());
       } else if (event['status'] == 'internet-absent') {
-        emit(InternetAbsent(event['error']));
+        emit(AppInternetAbsent());
       } else if (event['status'] == 'success') {
         emit(GoodRequest(data: JsonToModel.toSummary(event['value'])));
       } else if (event['status'] == 'unknown') {
-        emit(Unknown(event['value']));
+        emit(AppUnknownError());
       }
     });
   }
@@ -32,18 +32,18 @@ class SearchCubit extends Cubit<SearchState> {
   void getCity(String cityname) {
     Api.searchWeatherData(cityname).listen((event) {
       if (event['status'] == 'loading') {
-        emit(Loading());
+        emit(SearchingResult());
       } else if (event['status'] == 'bad-request') {
-        emit(BadRequest(
+        emit(ApiGivesBadRequest(
           error: event['value']['message'],
           errorCode: event['value']['cod'],
         ));
       } else if (event['status'] == 'internet-absent') {
-        emit(InternetAbsent(event['error']));
+        emit(AppInternetAbsent());
       } else if (event['status'] == 'success') {
         emit(GoodRequest(data: JsonToModel.toSummary(event['value'])));
       } else if (event['status'] == 'unknown') {
-        emit(Unknown(event['value']));
+        emit(AppUnknownError());
       }
     });
   }

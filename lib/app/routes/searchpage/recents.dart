@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
-import 'package:weatherapp/data/local/localstorage.dart';
 import 'package:weatherapp/data/local/store_fav.dart';
 import 'package:weatherapp/data/local/store_recents.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
@@ -25,26 +26,37 @@ class _RecentsState extends State<Recents> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const CurrentLocation(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Recents', style: Theme.of(context).textTheme.headline6),
-              IconButton(
+          ListTile(
+              contentPadding: EdgeInsets.zero,
+              title: Text(
+                'Recents',
+                style: Theme.of(context).textTheme.headline6!.copyWith(
+                    fontFamily: GoogleFonts.workSans().fontFamily,
+                    fontWeight: FontWeight.w400),
+              ),
+              trailing: IconButton(
                   onPressed: () {
                     StoreFavourites.clearFavourites();
                     setState(() {});
                   },
-                  icon: const Icon(Icons.delete_forever))
-            ],
-          ),
+                  icon: const Icon(Icons.delete_forever))),
           (_recents == null || _recents.isEmpty)
-              ? const Center(child: Text('No recents search'))
+              ? Center(
+                  child: Text('No recents search',
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                          fontSize: 14,
+                          fontFamily:
+                              GoogleFonts.robotoCondensed().fontFamily)),
+                )
               : Expanded(
                   child: ListView.builder(
                       itemCount: _recents.length,
                       itemBuilder: (context, i) => ListTile(
-                            minVerticalPadding: 0,
-                            title: Text(_recents[i]),
+                            dense: true,
+                            title: Text(
+                              _recents[i],
+                              style: const TextStyle(fontSize: 14),
+                            ),
                             onTap: () {
                               _searchcubit.getCity(_recents[i]);
                             },

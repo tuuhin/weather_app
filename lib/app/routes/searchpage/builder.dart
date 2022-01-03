@@ -11,18 +11,18 @@ class SearchBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchCubit, SearchState>(builder: (context, state) {
-      if (state is Normal) {
+      if (state is ShowRecents) {
         return const Recents();
-      } else if (state is Loading) {
+      } else if (state is SearchingResult) {
         return const Spinner();
-      } else if (state is BadRequest) {
+      } else if (state is ApiGivesBadRequest) {
         return Responses(
             helperAbsent: true,
             imageSrc: 'assets/api/bad-req.png',
             helper: 'Bad Request ${state.errorCode ?? ''}',
             secondary: state.error,
             buttonText: 'Try Again');
-      } else if (state is InternetAbsent) {
+      } else if (state is AppInternetAbsent) {
         return const Responses(
           helperAbsent: true,
           imageSrc: 'assets/api/network.png',
@@ -30,13 +30,13 @@ class SearchBuilder extends StatelessWidget {
           secondary:
               'The device is not connected to internet.Connect to a internet provider and then press on retry',
         );
-      } else if (state is Unknown) {
-        return Responses(
+      } else if (state is AppUnknownError) {
+        return const Responses(
             helperAbsent: true,
             imageSrc: 'assets/api/unknown.png',
             helper: 'Error',
             secondary:
-                'Due to ${state.error} problem the application is not working fine.Try after some time',
+                'Due to some problem the application is not working fine.Try after some time',
             buttonText: 'Retry');
       } else {
         return const SizedBox.shrink();

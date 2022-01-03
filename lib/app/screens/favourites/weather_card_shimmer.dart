@@ -42,7 +42,7 @@ class WeatherShimmer extends StatelessWidget {
                     topRight: Radius.circular(10),
                     bottomRight: Radius.circular(10)),
                 color: Theme.of(context).brightness == Brightness.light
-                    ? Colors.grey[100]
+                    ? Colors.amber[100]
                     : Colors.white10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,14 +52,14 @@ class WeatherShimmer extends StatelessWidget {
                   height: double.infinity,
                   decoration: BoxDecoration(
                       color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.orange
-                          : Colors.blue,
+                          ? Colors.amberAccent
+                          : Colors.cyanAccent,
                       boxShadow: [
                         BoxShadow(
                           color:
                               Theme.of(context).brightness == Brightness.light
-                                  ? Colors.orange
-                                  : Colors.blue,
+                                  ? Colors.amberAccent
+                                  : Colors.cyanAccent,
                           blurRadius: 5,
                         )
                       ]),

@@ -27,10 +27,12 @@ class _WeekDetailsState extends State<WeekDetails> {
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text('Week\'s Weather',
-            style: TextStyle(
-              fontFamily: GoogleFonts.poppins().fontFamily,
-            )),
+        title: Text(
+          'Week\'s Weather',
+          style: Theme.of(context).textTheme.headline6!.copyWith(
+              fontFamily: GoogleFonts.workSans().fontFamily,
+              fontWeight: FontWeight.w400),
+        ),
       ),
       body: SafeArea(
         child: ListView(

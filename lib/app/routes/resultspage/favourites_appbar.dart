@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weatherapp/data/local/localstorage.dart';
 import 'package:weatherapp/data/local/store_fav.dart';
-import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
 
 class FavouriteAppBar extends StatefulWidget {
   final String? cityname;
@@ -21,12 +18,14 @@ class _FavouriteAppBarState extends State<FavouriteAppBar> {
               await StoreFavourites.updateFavourites(widget.cityname);
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               duration: const Duration(seconds: 1),
-              content:
-                  Text(updateFav ? 'Favourite Added' : 'Favourite Removed')));
+              content: Text(updateFav
+                  ? 'Added ${widget.cityname} to your favourites'
+                  : 'Removed ${widget.cityname} from your favourites')));
           setState(() {});
         },
-        icon: Icon(StoreFavourites.isFavourite(widget.cityname)
-            ? Icons.favorite
-            : Icons.favorite_outline));
+        icon: Icon(Icons.favorite,
+            color: StoreFavourites.isFavourite(widget.cityname)
+                ? Colors.pinkAccent
+                : Colors.white60));
   }
 }

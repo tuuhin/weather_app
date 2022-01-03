@@ -5,19 +5,19 @@ abstract class AppState {}
 
 class AppLoading extends AppState {}
 
-class AppSuccess extends AppState {
+class AppGivesSuccess extends AppState {
   final HomeModel? model;
 
-  AppSuccess(this.model);
+  AppGivesSuccess({this.model});
 }
 
-class ApiError extends AppState {
-  final int? statusCode;
+class ApiMadeBadRequest extends AppState {
+  final dynamic statusCode;
   final String? error;
 
-  ApiError(this.error, {this.statusCode});
+  ApiMadeBadRequest({this.error, this.statusCode});
 }
 
 class AppInternetAbsent extends AppState {}
 
-class AppUnknown extends AppState {}
+class AppUnknownErrorType extends AppState {}

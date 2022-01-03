@@ -3,27 +3,21 @@ part of 'search_cubit.dart';
 @immutable
 abstract class SearchState {}
 
-class Normal extends SearchState {}
+class ShowRecents extends SearchState {}
 
-class Loading extends SearchState {}
+class SearchingResult extends SearchState {}
 
 class GoodRequest extends SearchState {
   final SummaryModel? data;
   GoodRequest({this.data});
 }
 
-class BadRequest extends SearchState {
+class ApiGivesBadRequest extends SearchState {
   final String? error;
   final dynamic errorCode;
-  BadRequest({this.error, this.errorCode});
+  ApiGivesBadRequest({this.error, this.errorCode});
 }
 
-class InternetAbsent extends SearchState {
-  final Object? error;
-  InternetAbsent(this.error);
-}
+class AppInternetAbsent extends SearchState {}
 
-class Unknown extends SearchState {
-  final Object? error;
-  Unknown(this.error);
-}
+class AppUnknownError extends SearchState {}

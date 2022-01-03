@@ -8,32 +8,32 @@ import 'package:weatherapp/domain/models/favourites_model.dart';
 part 'favourites_state.dart';
 
 class FavouritesCubit extends Cubit<FavouritesState> {
-  FavouritesCubit() : super(Loading());
+  FavouritesCubit() : super(LoadingFavourites());
 
   void loadData() async {
     final List<String> _favourites =
         StoreFavourites.getFavourites().reversed.toList();
-    if (_favourites.isEmpty) return emit(NoFavourites());
+    if (_favourites.isEmpty) return emit(NoUsersFavourites());
     _loadFavourites(_favourites);
     print('loading data');
   }
 
   void refreshFavs() {
-    emit(Loading());
+    emit(LoadingFavourites());
   }
 
   void _loadFavourites(List<String> fav) async {
     Api.getFavouritesWeather(fav).listen((event) {
       if (event['status'] == 'loading') {
-        emit(Loading());
+        emit(LoadingFavourites());
       } else if (event['status'] == 'internet-absent') {
-        emit(InternetAbsent(event['value']));
+        emit(AppInternetAbsent(event['value']));
       } else if (event['status'] == 'bad-request') {
-        emit(BadRequest(badReq: event['value']));
+        emit(ApiGivesBadResult(badReq: event['value']));
       } else if (event['status'] == 'success') {
-        emit(Success(favouritesInfo: event['value']));
+        emit(FavouritesSuccess(favouritesInfo: event['value']));
       } else if (event['status'] == 'unknown') {
-        emit(Unknown(event['value']));
+        emit(AppUnknownError(event['value']));
       }
     });
   }

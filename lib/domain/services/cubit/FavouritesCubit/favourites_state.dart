@@ -3,26 +3,26 @@ part of 'favourites_cubit.dart';
 @immutable
 abstract class FavouritesState {}
 
-class Loading extends FavouritesState {}
+class LoadingFavourites extends FavouritesState {}
 
-class InternetAbsent extends FavouritesState {
+class AppInternetAbsent extends FavouritesState {
   final Object? error;
-  InternetAbsent(this.error);
+  AppInternetAbsent(this.error);
 }
 
-class Unknown extends FavouritesState {
+class AppUnknownError extends FavouritesState {
   final Object? error;
-  Unknown(this.error);
+  AppUnknownError(this.error);
 }
 
-class BadRequest extends FavouritesState {
+class ApiGivesBadResult extends FavouritesState {
   final String? badReq;
-  BadRequest({this.badReq});
+  ApiGivesBadResult({this.badReq});
 }
 
-class NoFavourites extends FavouritesState {}
+class NoUsersFavourites extends FavouritesState {}
 
-class Success extends FavouritesState {
+class FavouritesSuccess extends FavouritesState {
   final List<FavouriteModel>? favouritesInfo;
-  Success({this.favouritesInfo});
+  FavouritesSuccess({this.favouritesInfo});
 }

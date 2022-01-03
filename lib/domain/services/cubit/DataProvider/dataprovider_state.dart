@@ -1,6 +1,6 @@
 part of 'dataprovider_cubit.dart';
 
 @immutable
-abstract class DataproviderState {}
+abstract class DataProviderState {}
 
-class DataproviderInitial extends DataproviderState {}
+class DataProvider extends DataProviderState {}

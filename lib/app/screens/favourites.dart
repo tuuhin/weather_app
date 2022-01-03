@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
 import 'package:weatherapp/app/screens/favourites/favourites_builder.dart';
 import 'package:weatherapp/domain/services/cubit/FavouritesCubit/favourites_cubit.dart';
@@ -17,8 +18,16 @@ class Favourites extends StatelessWidget {
         showDialog(
             context: context,
             builder: (context) => AlertDialog(
-                  title: const Text('Reload Favourites'),
-                  content: const Text('press reload to reload favourites'),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  title: Text('Refresh Favourites',
+                      style: Theme.of(context).textTheme.headline6),
+                  content: Text(
+                      'Refresh your favourites. It\'s recomended to refresh if you have added a new city to your favourites',
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                          fontSize: 14,
+                          fontFamily:
+                              GoogleFonts.robotoCondensed().fontFamily)),
                   actions: [
                     TextButton(
                         onPressed: () => Navigator.of(context).pop(),
@@ -28,7 +37,8 @@ class Favourites extends StatelessWidget {
                           _fav.refreshFavs();
                           Navigator.of(context).pop();
                         },
-                        child: const Text('Reload'))
+                        child: Text('Reload',
+                            style: Theme.of(context).textTheme.subtitle2))
                   ],
                 ));
         // _fav.refreshFavs();
@@ -51,11 +61,9 @@ class Favourites extends StatelessWidget {
                 ? null
                 : Colors.white10,
             trailing: const Icon(Icons.search),
-            title: Text(
-              'Search',
-              style:
-                  TextStyle(color: Theme.of(context).textTheme.caption!.color),
-            ),
+            title: Text('Search',
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.caption!.color)),
           ),
         ),
         body: const SafeArea(

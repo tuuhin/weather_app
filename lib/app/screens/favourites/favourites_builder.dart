@@ -16,12 +16,12 @@ class FavouritesBuilder extends StatelessWidget {
         BlocProvider.of<FavouritesCubit>(context, listen: true);
     return BlocBuilder<FavouritesCubit, FavouritesState>(
       builder: (context, state) {
-        if (state is Loading) {
+        if (state is LoadingFavourites) {
           _fav.loadData();
           return ListView.builder(
               itemCount: 4,
               itemBuilder: (context, i) => const WeatherShimmer());
-        } else if (state is InternetAbsent) {
+        } else if (state is AppInternetAbsent) {
           return Responses(
             imageSrc: 'assets/api/network.png',
             helper: 'No internet',
@@ -32,19 +32,19 @@ class FavouritesBuilder extends StatelessWidget {
               AppSettings.openDataRoamingSettings();
             },
             tryAgain: () {
-              _fav.emit(Loading());
+              _fav.emit(LoadingFavourites());
             },
           );
-        } else if (state is BadRequest) {
+        } else if (state is ApiGivesBadResult) {
           return Responses(
             imageSrc: 'assets/api/bad-req.png',
             helper: 'Failed ',
             secondary: state.badReq,
             helperAbsent: true,
           );
-        } else if (state is NoFavourites) {
+        } else if (state is NoUsersFavourites) {
           return const NoUserFavorites();
-        } else if (state is Unknown) {
+        } else if (state is AppUnknownError) {
           return Responses(
             imageSrc: 'assets/api/unknown.png',
             helper: 'Error',
@@ -52,7 +52,7 @@ class FavouritesBuilder extends StatelessWidget {
                 'There is some ${state.error} .Its adviced to use the app after some period of time',
             helperAbsent: true,
           );
-        } else if (state is Success) {
+        } else if (state is FavouritesSuccess) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(

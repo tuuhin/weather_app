@@ -15,7 +15,7 @@ class _CurrentWeatherState extends State<CurrentWeather>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    DataproviderCubit _data = BlocProvider.of<DataproviderCubit>(context);
+    DataProviderCubit _data = BlocProvider.of<DataProviderCubit>(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),

@@ -21,8 +21,8 @@ class Sunrise extends StatelessWidget {
                   child: CustomPaint(
                       foregroundPainter: ArcPainter(
                           Theme.of(context).brightness == Brightness.light
-                              ? Colors.orange
-                              : Colors.blue)),
+                              ? Colors.amberAccent
+                              : Colors.cyanAccent)),
                 ),
                 Positioned(
                     right: 15,

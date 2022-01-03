@@ -27,7 +27,7 @@ class WeatherCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('$cityname', style: Theme.of(context).textTheme.headline5),
-            Text('$temp' '\u00b0C',
+            Text('$temp ' '\u00b0C',
                 style: Theme.of(context).textTheme.headline4)
           ],
         ),
@@ -49,14 +49,14 @@ class WeatherCard extends StatelessWidget {
                   height: double.infinity,
                   decoration: BoxDecoration(
                       color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.orange
-                          : Colors.blue,
+                          ? Colors.amberAccent
+                          : Colors.cyanAccent,
                       boxShadow: [
                         BoxShadow(
                           color:
                               Theme.of(context).brightness == Brightness.light
-                                  ? Colors.orange
-                                  : Colors.blue,
+                                  ? Colors.amberAccent
+                                  : Colors.cyanAccent,
                           blurRadius: 5,
                         )
                       ]),

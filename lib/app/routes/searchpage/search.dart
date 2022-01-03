@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/app/routes/resultspage/results.dart';
 import 'package:weatherapp/app/routes/searchpage/searchpage.dart';
-import 'package:weatherapp/data/local/localstorage.dart';
 import 'package:weatherapp/data/local/store_recents.dart';
 import 'package:weatherapp/domain/services/cubit/SearchCubit/search_cubit.dart';
 

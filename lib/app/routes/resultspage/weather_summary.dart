@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:weatherapp/app/routes/resultspage/results.dart';
 import 'package:weatherapp/data/local/store_location.dart';
 import 'package:weatherapp/domain/models/models.dart';
@@ -21,8 +23,12 @@ class WeatherSummary extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('${summaryModel!.cityName}',
-              style: Theme.of(context).textTheme.headline5),
+          title: Text(
+            '${summaryModel!.cityName}',
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                fontFamily: GoogleFonts.workSans().fontFamily,
+                fontWeight: FontWeight.w400),
+          ),
           elevation: 0,
           actions: [FavouriteAppBar(cityname: summaryModel!.cityName)],
         ),
@@ -46,8 +52,9 @@ class WeatherSummary extends StatelessWidget {
                     )
                   : const SizedBox.shrink(),
               Chip(
-                  label: Text('${summaryModel!.weatherMain}',
-                      style: Theme.of(context).textTheme.headline6)),
+                label: Text('${summaryModel!.weatherMain}',
+                    style: Theme.of(context).textTheme.subtitle1),
+              ),
               Text('${summaryModel!.description}',
                   style: Theme.of(context).textTheme.subtitle2),
               Text('${summaryModel!.temp} ' '\u00b0C',
@@ -102,15 +109,32 @@ class WeatherSummary extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: BottomAppBar(
-          child: ElevatedButton(
-            onPressed: () async {
-              await StoreLocation.setUserPreferedLocation(
-                  summaryModel!.lat, summaryModel!.lon);
-              Navigator.of(context).pop();
-              _app.emit(AppLoading());
-            },
-            child: Text('Set as Prefered City',
-                style: Theme.of(context).textTheme.subtitle2),
+          elevation: 0,
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              onPressed: () async {
+                await StoreLocation.setUserPreferedLocation(
+                    summaryModel!.lat, summaryModel!.lon);
+                Navigator.of(context).pop();
+                _app.emit(AppLoading());
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text('Set as Prefered City',
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                        color: Colors.white,
+                        fontFamily: GoogleFonts.robotoCondensed().fontFamily,
+                        fontWeight: FontWeight.w400)),
+              ),
+            ),
           ),
         ),
       ),

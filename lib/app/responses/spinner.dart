@@ -12,6 +12,7 @@ class Spinner extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CircularProgressIndicator(semanticsLabel: 'Loading...'),
+            const SizedBox(height: 10),
             Text('Loading', style: Theme.of(context).textTheme.subtitle2)
           ],
         ),
