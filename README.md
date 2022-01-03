@@ -1,30 +1,23 @@
-# weatherapp
+# Weatherapp
 
-A new Flutter project.
+### Description
+This project is a starting point for a weather app that follows the
+[app state management](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple),using bloc. 
 
-## Getting Started
+#### Assets
+The `assets` directory contains the app icon ,and `api` folder contains files related to api responses and `icon` folder contains all the images for weather icons.
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
+### Use the app
+To use the app.First you need to have a `API KEY` [openweathermap.org](https://openweathermap.org/).Then create a `.env` file the root directory.
+In the `.env` file
+`API_KEY=API_KEY=Your api key`
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Add all the required packages
+```bash
+    flutter pub get
+    flutter run
+```
 
-## Assets
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
 
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
