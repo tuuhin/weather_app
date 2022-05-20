@@ -23,6 +23,7 @@ class Utils {
     } catch (e) {
       print(e.toString());
     }
+    return null;
   }
 
   static Future<Position> getPos() async {

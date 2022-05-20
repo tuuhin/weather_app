@@ -25,6 +25,7 @@ class AppCubit extends Cubit<AppState> {
       print(e);
       return false;
     }
+    return null;
   }
 
   void getLocation() {
